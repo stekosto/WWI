@@ -11,7 +11,7 @@
             <div class="carousel-inner">
                 <!-- <span *ngFor="let ssubitem of subItem['items'] "> -->
                    
-                  <div class="carousel-item"  *ngFor="let item of resultItems; let i = index" [ngClass]="{'active': i == 0 }">
+                  <div class="carousel-item"  *ngFor="let item of data; let i = index" [ngClass]="{'active': i == 1 }">
                     <a href="#"><img class="d-block md-100 w-25 text-black-50 fluid" src="{{ item.imagelink }}" alt="{{ item.name }}" />{{ item.name }}</a>
                     <div class="carousel-caption d-none d-md-block">
                     </div>
@@ -36,7 +36,7 @@
 <section class="bg-primary">
   <div class="container text-center py-3">
     <button class="btn btn-default mr-5" [routerLink]="['/shopping']" routerLinkActive="router-link-active" >Shop all!</button>
-    <button class="btn btn-default ml-5" href="#carouselExampleControls" role="button" data-slide="next">Toggle Slide Show!</button>
+    <button class="btn btn-default ml-5" (click)="populateCarousel()" href="#carouselExampleControls" role="button" data-slide="next">Toggle Slide Show!</button>
   </div>
 </section>
 <section>
