@@ -13,6 +13,11 @@ export class CompService {
   selectedSubCat = this.subCatSource.asObservable();
   private ProductNameSource = new BehaviorSubject<Subcategories>({ name: null, items: null });
   selectProductName = this.ProductNameSource.asObservable();
+  private stateShowItem = new BehaviorSubject<boolean>(false);
+  setStateShowItem = this.stateShowItem.asObservable();
+  private sortingValue = new BehaviorSubject<string>('0');
+  selectedSortingValue = this.sortingValue.asObservable();
+
   constructor() { }
 
   setSubCat(data: Data) {
@@ -21,6 +26,14 @@ export class CompService {
 
   setProductName(subItem: Subcategories) {
     this.ProductNameSource.next(subItem);
+  }
+
+  setShowItems(state: boolean) {
+    this.stateShowItem.next(state);
+  }
+
+  setSortingValue(value: string) {
+    this.sortingValue.next(value);
   }
 
 }

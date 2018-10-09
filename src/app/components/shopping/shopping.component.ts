@@ -11,8 +11,10 @@ import { Subcategories } from '../../models/subcategories';
 })
 export class ShoppingComponent implements OnInit {
   data: Data[];
-  isTrue: boolean = false;
-  showitems: boolean = false;
+  isTrue = false;
+  showitems = false;
+  selectedFilter: number;
+  selectedOption: boolean = false;
 
   constructor(private dataService: DataService, private compService: CompService) { }
 
@@ -24,12 +26,20 @@ export class ShoppingComponent implements OnInit {
 
   getSubcat(data: Data) {
     this.compService.setSubCat(data);
-    this.showitems = true;
+    this.compService.setShowItems(false);
   }
 
   getProductName(subcategories: Subcategories) {
     this.compService.setProductName(subcategories);
-    this.showitems = true;
+    this.compService.setShowItems(true);
+  }
+
+  getInStock()  {
+    console.log('123');
+  }
+
+  getFilterValue(value: string) {
+  this.compService.setSortingValue(value);
   }
 
 }

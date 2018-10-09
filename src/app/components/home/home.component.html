@@ -1,26 +1,34 @@
+
+<!------------------------------
+            NAV SHOP STARTS
+         ------------------------------>
+<section class="bg-light mb-3">
+  <div class="container">
+    <nav class="nav nav-pills d-flex flex-row align-content-start flex-wrap flex-md-nowrap">
+    <h2 class="flex-grow-1 text-center text-lg-left nav-link disabled w-auto nav-home-greeting mr-0 mr-md-5" href="#">Welcome to our online shop!</h2>
+    <a class="flex-grow-1 flex-md-shrink-1 text-center nav-link mr-3 bg-secondary text-white h-50 align-self-left align-self-md-center" href="#" href="#carouselExampleControls" data-slide="next" (click)="onCarouselStart()">Toggle Slide Show!</a>
+    <a class="flex-grow-1 flex-md-shrink-1 text-center nav-link bg-primary h-50 align-self-right align-self-md-center" href="" [routerLink]="['/shopping']" routerLinkActive="router-link-active">Shop all!</a>
+    </nav>
+  </div>
+</section>
+<hr/>
 <!------------------------------
             CAROUSEL STARTS
          ------------------------------>
 <section class="carousel bg-light">
   <div class="container">
     <!-- Controls -->
-    <div id="carouselExampleControls" class="carousel slide" data-interval="false">
+    <div id="carouselExampleControls" class="carousel slide" [attr.data-ride]="false" data-interval="false" [attr.data-interval]="carouselSpeed">
       <!-- The slideshow -->
-      <!-- <span *ngFor="let item of data">
-        <span *ngFor="let subItem of item['subcategories']"> -->
             <div class="carousel-inner">
-                <!-- <span *ngFor="let ssubitem of subItem['items'] "> -->
-                   
-                  <div class="carousel-item"  *ngFor="let item of data; let i = index" [ngClass]="{'active': i == 1 }">
-                    <a href="#"><img class="d-block md-100 w-25 text-black-50 fluid" src="{{ item.imagelink }}" alt="{{ item.name }}" />{{ item.name }}</a>
-                    <div class="carousel-caption d-none d-md-block">
+                  <div href="" [routerLink]="['/product', item.name]" routerLinkActive="router-link-active"  class="carousel-item pt-5 pt-xl-5" *ngFor="let item of items; let i = index" [ngClass]="{'active': i == 1 }">
+                    <img class="d-block w-auto h-50 mx-auto" src="{{ item.imagelink }}" alt="{{ item.name }}" />
+                    <div class="carousel-caption">
+                        <h5 class="text-black">{{ item.name }}</h5>
+                        <p class="text-black">{{ item.price | currency: 'USD' }}</p>
                     </div>
                   </div>
-                    
-                <!-- </span> -->
             </div>
-        <!-- </span>
-      </span> -->
       <!-- Left and right controls -->
       <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -33,18 +41,7 @@
     </div>
   </div>
 </section>
-<section class="bg-primary">
-  <div class="container text-center py-3">
-    <button class="btn btn-default mr-5" [routerLink]="['/shopping']" routerLinkActive="router-link-active" >Shop all!</button>
-    <button class="btn btn-default ml-5" (click)="populateCarousel()" href="#carouselExampleControls" role="button" data-slide="next">Toggle Slide Show!</button>
-  </div>
-</section>
-<section>
-  <div class="container py-5">
-    <div class="text-center h4">Welcome to the most popular online shop!</div>
-
-  </div>
-</section>
+<hr/>
 <!------------------------------
             CAROUSEL ENDS
          ------------------------------>

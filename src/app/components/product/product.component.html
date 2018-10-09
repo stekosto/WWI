@@ -1,3 +1,17 @@
-<p>
-  product works!
-</p>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-5"><img src="" class="img-fluid" alt=""> </div>
+      <div class="col-7">
+        <h2>{{ item.name }}</h2>
+        <h4>Rating {{ item.rating }}</h4>
+        <h4>In stock: {{ item.stock }} pcs</h4>
+        <h4>Price {{ item.price | currency: USD }}</h4>
+        <h4>Description: {{ item.stock }}</h4>
+        <h4>Qty</h4><input type="number" name="quantity" value="1">
+        <button class="btn btn-primary d-block mt-2">Add</button>
+        <button class="btn btn-info mt-2" (click)="onBack()">Back</button>
+      </div>
+    </div>
+  </div>
+</section>

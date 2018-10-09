@@ -16,6 +16,7 @@ import { AppRouterModule } from './app-router/app-router.module';
 import { NoContentComponent } from './components/no-content/no-content.component';
 import { FiltersubPipe } from './pipes/filtersub.pipe';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
+import { ShoppingListCatComponent } from './components/shopping-list-cat/shopping-list-cat.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
     AboutComponent,
     NoContentComponent,
     FiltersubPipe,
-    ShoppingListComponent
+    ShoppingListComponent,
+    ShoppingListCatComponent
   ],
   imports: [
     BrowserModule,

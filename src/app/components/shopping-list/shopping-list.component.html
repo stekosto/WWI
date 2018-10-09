@@ -1,16 +1,8 @@
-<div class="row" *ngIf="!showitems">
-    <div class="col-4" *ngFor="let subcategory of subcategories">
-        <div class="card card-body m-3">
-            <a (click)="getProductName(subcategory)" class="text-dark">{{ subcategory.name }}</a>
-        </div>
-    </div>
-</div>
-
 <span *ngIf="showitems">
     <div class="row">
         <div class="col-3" *ngFor="let item of items">
             <figure class="figure card card-body mb-3">
-                <img src="{{ item.imagelink }}" class="figure-img img-fluid rounded" alt="{{ item.name }}">
+                <a href="" [routerLink]="['/product', item.name]" routerLinkActive="router-link-active" ><img src="{{ item.imagelink }}" class="figure-img img-fluid rounded" alt="{{ item.name }}"></a>
                 <figcaption class="figure-caption text-right">{{ item.name }}</figcaption>
             </figure>
         </div>

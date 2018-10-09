@@ -1,0 +1,7 @@
+<div  *ngIf="!showitems" class="d-flex flex-column align-items-center" >
+  
+          <a (click)="getProductName(subcategory)" class="lead text-dark cursor card card-body text-center mb-3 p-1 bg-white h-100 w-50" *ngFor="let subcategory of subcategories text-nowrap">
+            {{ subcategory.name }}</a>
+     
+  
+</div>

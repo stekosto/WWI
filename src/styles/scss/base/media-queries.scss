@@ -24,6 +24,10 @@
 /* Breakpoint for medium viewport */
 @include media-breakpoint-up(md) {
 
+    h2.nav-home-greeting {
+    font-size: 1.6rem!important;
+}
+
     .w-md-25 {
         width: 25% !important;
     }
@@ -42,6 +46,9 @@
 }
 /* Breakpoint for large viewport */
 @include media-breakpoint-up(lg) {
+    h2.nav-home-greeting {
+        font-size: 2rem!important;
+    }
 
     .w-lg-25 {
         width: 25% !important;
