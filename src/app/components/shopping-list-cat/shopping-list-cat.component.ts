@@ -22,7 +22,7 @@ export class ShoppingListCatComponent implements OnInit {
     this.compService.setStateShowItem.subscribe(incomingstate => {
       if (incomingstate !== null) {
         this.showitems = incomingstate;
-        console.log(incomingstate);
+        // console.log(incomingstate);
       }
     });
   }
@@ -30,8 +30,8 @@ export class ShoppingListCatComponent implements OnInit {
   getProductName(subcategories: Subcategories) {
     this.compService.setProductName(subcategories);
     this.compService.setShowItems(true);
-    console.log(subcategories);
-    console.log(this.showitems);
+    // console.log(subcategories);
+    // console.log(this.showitems);
   }
 
 }

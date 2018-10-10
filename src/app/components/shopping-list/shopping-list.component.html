@@ -3,7 +3,13 @@
         <div class="col-3" *ngFor="let item of items">
             <figure class="figure card card-body mb-3">
                 <a href="" [routerLink]="['/product', item.name]" routerLinkActive="router-link-active" ><img src="{{ item.imagelink }}" class="figure-img img-fluid rounded" alt="{{ item.name }}"></a>
-                <figcaption class="figure-caption text-right">{{ item.name }}</figcaption>
+                <figcaption class="figure-caption text-right">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">{{ item.name }} </li>
+                        <li class="breadcrumb-item">Price: {{ item.price | currency: USD }}</li>
+                        <li class="breadcrumb-item active">Rating: {{ item.rating }}</li>
+                        <li class="breadcrumb-item active">in Stock: {{ item.stock }}</li>
+                    </ol></figcaption>
             </figure>
         </div>
     </div>

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './services/data.service';
+import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { TestComponent } from './components/test/test.component';
 import { ShoppingComponent } from './components/shopping/shopping.component';
@@ -17,6 +18,7 @@ import { NoContentComponent } from './components/no-content/no-content.component
 import { FiltersubPipe } from './pipes/filtersub.pipe';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { ShoppingListCatComponent } from './components/shopping-list-cat/shopping-list-cat.component';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { ShoppingListCatComponent } from './components/shopping-list-cat/shoppin
   imports: [
     BrowserModule,
     AppRouterModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent],

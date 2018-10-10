@@ -12,9 +12,16 @@ import { Subcategories } from '../../models/subcategories';
 export class ShoppingComponent implements OnInit {
   data: Data[];
   isTrue = false;
+  inStock: boolean = false;
   showitems = false;
   selectedFilter: number;
   selectedOption: boolean = false;
+  options: Array<Object> = [
+    {name: 'None', value: '1'} ,
+    {name: 'Price', value: '2'},
+    {name: 'Alphabetical', value: '3'},
+    {name: 'Rating', value: '4'},
+  ];
 
   constructor(private dataService: DataService, private compService: CompService) { }
 
@@ -34,11 +41,11 @@ export class ShoppingComponent implements OnInit {
     this.compService.setShowItems(true);
   }
 
-  getInStock()  {
-    console.log('123');
+  getInStock(value: boolean)  {
+    this.compService.setFilterStockValue(value);
   }
 
-  getFilterValue(value: string) {
+  getSortingValue(value: string) {
   this.compService.setSortingValue(value);
   }
 

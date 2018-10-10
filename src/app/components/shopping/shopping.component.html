@@ -7,24 +7,23 @@
                 <div class="input-group text-center mr-auto mr-md-3 align-self-left align-self-md-center w-50 w-md-auto">
                     <div class="input-group-prepend">
                         <div class="input-group-text">
-                            <input type="checkbox" aria-label="Checkbox for following text input" (change)="getInStock()">
+                            <span class="mr-2">In Stock</span>
+                            <input type="checkbox" aria-label="Checkbox for following text input" [(ngModel)]="inStock" (click)="getInStock(!inStock)">
                         </div>
                     </div>
-                    <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="In Stock only" disabled  >
                 </div>
                 <div class="input-group nav-item-dropdown align-self-right align-self-md-center w-50 w-md-auto">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Sort by:</label>
-                    </div>
-                    <select class="custom-select" id="inputGroupSelect01" (change)="getFilterValue($event.target.value)">
-                        <option value="1" selected class="text-nowrap">None</option>
-                        <option value="2"   class="text-nowrap">Price</option>
-                        <option value="3"  class="text-nowrap">Alphabetical</option>
-                        <option value="4"  class="text-nowrap">Rating</option>
-                    </select>
+                    <form #f="ngForm" class="form-inline" >
+                            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Sort by:</label>
+                            <select class="custom-select" name="option" ngModel (change)="getSortingValue($event.target.value)">
+                              <option value="" >Choose...</option>
+                              <option *ngFor="let option of options" [value]="option.value">
+                                {{ option.name }}
+                              </option>
+                            </select>
+                    </form>                    
                 </div>
             </nav>
-
             <hr />
         </div>
     </div>
@@ -36,8 +35,7 @@
                     <ul class="list-unstyled components" *ngFor='let item of data; let i = index;'>
                         <li>
                             <a data-toggle="collapse" href="{{ '#pageSubmenu' + i }}" aria-expanded="selectedOption"
-                                attr.aria-controls="{{ 'pageSubmenu' + i }}" class="dropdown-toggle" (click)="getSubcat(item)">{{
-                                item.category }}</a>
+                                attr.aria-controls="{{ 'pageSubmenu' + i }}" class="dropdown-toggle" (click)="getSubcat(item)">{{ item.category }}</a>
                             <ul id="vert-subcat" class="collapse list-unstyled ml-3 d-none d-md-block" id="{{ 'pageSubmenu' + i }}">
                                 <li *ngFor="let subItem of item['subcategories']" class="text-nowrap">
                                     <a (click)="getProductName(subItem)">{{ subItem.name }} </a>

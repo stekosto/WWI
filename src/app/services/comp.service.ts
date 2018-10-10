@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Data } from '../models/data';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Subcategories } from '../models/subcategories';
 
 @Injectable({
@@ -17,6 +17,8 @@ export class CompService {
   setStateShowItem = this.stateShowItem.asObservable();
   private sortingValue = new BehaviorSubject<string>('0');
   selectedSortingValue = this.sortingValue.asObservable();
+  private filterStockValue = new BehaviorSubject<boolean>(false);
+  selectedFilteredStockValue = this.filterStockValue.asObservable();
 
   constructor() { }
 
@@ -34,6 +36,10 @@ export class CompService {
 
   setSortingValue(value: string) {
     this.sortingValue.next(value);
+  }
+
+  setFilterStockValue(value: boolean) {
+    this.filterStockValue.next(value);
   }
 
 }
