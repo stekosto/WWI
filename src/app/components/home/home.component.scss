@@ -1,3 +1,27 @@
+#carousel .carousel-item {
+    // transition: transform 2s ease, opacity .5s ease-out
+    // transition: transform 1s ease-in-out;
+}
+
+.carousel-fade {
+    .carousel-item{
+      opacity: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: block;
+      position: absolute;
+      transition: opacity .75s ease-in-out;
+      &:first-of-type {
+        position:relative;
+      }           
+          &.active {
+              opacity: 1;
+          }
+    }
+  }
+
+
 .carousel-item {
 height: 50vh;
 }
@@ -13,3 +37,7 @@ height: 50vh;
     color: #000;
     text-align: center;
 }
+
+// .imagecarousel {
+// width:200px!important;
+// }

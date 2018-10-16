@@ -7,7 +7,7 @@
             <h3 class="">Shopping Cart</h3>
             <p class="text-justify pb-3">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi ratione </p>
-          <table class="table table-hover table-responsive-sm table-sm">
+          <table class="table table-hover table-responsive-sm table-sm" *ngIf="!cartState">
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Cart item</th>
@@ -19,38 +19,24 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td class="w-25"><img src="src/images/Oi_Brasil_Value_Pack_800X400.png" class="img-fluid" alt=""></td>
-                  <td>Oi! Brasil Oi! Brasil Oi! Brasil Oi! Brasil</td>
-                  <td>$70</td>
-                  <td><input type="number" name="quantity" value="3" class="text-center"></td>
-                  <td>$70</td>      
+                <tr *ngFor="let product of products">
+                  <td class="w-25 px-5 py-3"><img src="{{ product.imagelink }}" class="img-fluid" alt=""></td>
+                  <td>{{ product.description }}</td>
+                  <td>{{ product.price }}</td>
+                  <td><input type="number" name="quantity" [value]="product.quantity"   [(ngModel)]="product.quantity"  class="text-center"></td>
+                  <td>{{ totalPrice }}</td>      
                   <td><a class="btn btn-light"><i class="fa fa-times text-black-50"></i></a></td>
                 </tr>
-                <tr>
-                  <td class="w-25"><img src="src/images/Oi_Brasil_Value_Pack_800X400.png" class="img-fluid" alt=""></td>
-                  <td>Oi! Brasil</td>
-                  <td>$70</td>
-                  <td><input type="number" name="quantity" value="3" class="text-center"></td>
-                  <td>$70</td>      
-                  <td><a class="btn btn-light"><i class="fa fa-times text-black-50"></i></a></td>
-                </tr>      
-                <tr>
-                  <td class="w-25"><img src="src/images/Oi_Brasil_Value_Pack_800X400.png" class="img-fluid" alt=""></td>
-                  <td>Oi! Brasil</td>
-                  <td>$70</td>
-                  <td><input type="number" name="quantity" value="13" class="text-center"></td>
-                  <td>$70</td>      
-                  <td><a class="btn btn-light"><i class="fa fa-times text-black-50"></i></a></td>
-                </tr>   
               </tbody>
             </table>
+            <div class="lead" *ngIf="cartState">Shopping Cart is Empty!</div>
         </div>
       </div>
       <!-- Order Summary -->
       <div class="col-12 col-sm-4">
           <div class="jumbtron bg-light p-4">
               <h3 class="">Order Summary</h3>
+              <span>{{ productQuantity }}</span>
             <table class="table table-hover table-responsive-sm table-sm table-borderless">
                 <tbody>
                   <tr>

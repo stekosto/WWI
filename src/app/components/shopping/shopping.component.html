@@ -1,32 +1,5 @@
 <div class="container">
-    <div class="row">
-        <div class="col-12">
-            <nav class="d-flex flex-row-reverse flex-sm-row  align-content-start flex-wrap flex-md-nowrap">    
-                <div class="flex-grow-1 text-center text-md-left disabled w-auto mr-0 mr-md-5 mt-2 mt-md-auto text-nowrap align-self-left align-self-end"
-                    href="#">Showing 7 of 7 items in <em>subcategory.name</em></div>            
-                <div class="input-group text-center mr-auto mr-md-3 align-self-left align-self-md-center w-50 w-md-auto">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <span class="mr-2">In Stock</span>
-                            <input type="checkbox" aria-label="Checkbox for following text input" [(ngModel)]="inStock" (click)="getInStock(!inStock)">
-                        </div>
-                    </div>
-                </div>
-                <div class="input-group nav-item-dropdown align-self-right align-self-md-center w-50 w-md-auto">
-                    <form #f="ngForm" class="form-inline" >
-                            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Sort by:</label>
-                            <select class="custom-select" name="option" ngModel (change)="getSortingValue($event.target.value)">
-                              <option value="" >Choose...</option>
-                              <option *ngFor="let option of options" [value]="option.value">
-                                {{ option.name }}
-                              </option>
-                            </select>
-                    </form>                    
-                </div>
-            </nav>
-            <hr />
-        </div>
-    </div>
+    <app-shopping-toolbar></app-shopping-toolbar>
     <div class="row">
         <div class="col-3">
             <div class="wrapper">
@@ -47,8 +20,8 @@
             </div>
         </div>
         <div class="col-9">
+            <app-shopping-list-cat></app-shopping-list-cat> 
             <app-shopping-list></app-shopping-list>
-            <app-shopping-list-cat></app-shopping-list-cat>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, DoCheck } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { Data } from 'src/app/models/data';
 import { CompService } from '../../services/comp.service';
@@ -9,19 +9,12 @@ import { Subcategories } from '../../models/subcategories';
   templateUrl: './shopping.component.html',
   styleUrls: ['./shopping.component.scss']
 })
-export class ShoppingComponent implements OnInit {
+export class ShoppingComponent implements OnInit, OnChanges, DoCheck {
   data: Data[];
   isTrue = false;
-  inStock: boolean = false;
-  showitems = false;
-  selectedFilter: number;
-  selectedOption: boolean = false;
-  options: Array<Object> = [
-    {name: 'None', value: '1'} ,
-    {name: 'Price', value: '2'},
-    {name: 'Alphabetical', value: '3'},
-    {name: 'Rating', value: '4'},
-  ];
+  showitems = undefined;
+  sortingValue: string = '1';
+  inStock: boolean;
 
   constructor(private dataService: DataService, private compService: CompService) { }
 
@@ -29,7 +22,28 @@ export class ShoppingComponent implements OnInit {
     this.dataService.getData().subscribe(incomingdata => {
       this.data = incomingdata;
     });
+
+    this.compService.selectedSortingValue.subscribe(incSortValue => {
+      this.sortingValue = incSortValue;
+      // console.log('incSortValue: ' + incSortValue);
+      // console.log('sortingValue: ' + this.sortingValue);
+    });
+    this.compService.selectedFilteredStockValue.subscribe(incFilterStockValue => {
+      this.inStock = incFilterStockValue;
+      // console.log('incFilterStockValue ' + incFilterStockValue);
+      // console.log('inStock: ' + this.inStock);
+    });
+
   }
+
+  ngDoCheck() {
+  }
+
+  ngOnChanges() {
+
+  }
+
+  
 
   getSubcat(data: Data) {
     this.compService.setSubCat(data);
@@ -39,14 +53,8 @@ export class ShoppingComponent implements OnInit {
   getProductName(subcategories: Subcategories) {
     this.compService.setProductName(subcategories);
     this.compService.setShowItems(true);
-  }
-
-  getInStock(value: boolean)  {
-    this.compService.setFilterStockValue(value);
-  }
-
-  getSortingValue(value: string) {
-  this.compService.setSortingValue(value);
+    this.compService.setSortingValue(this.sortingValue);
+    this.compService.setFilterStockValue(this.inStock);
   }
 
 }

@@ -1,0 +1,27 @@
+.wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+// .wrapper::before {
+//   content: '';
+//   display: block;
+//   padding-bottom: 50%; 
+// }
+
+
+.wrapper::after {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.wrapper img {
+  width: auto;
+  height: 50%;
+  max-width: none;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}

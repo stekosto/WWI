@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from '../components/home/home.component';
-import { CartComponent } from '../components/cart/cart.component';
+import { CartComponent } from '../components/shopping-cart/shopping-cart.component';
 import { ShoppingComponent } from '../components/shopping/shopping.component';
 import { ProductComponent } from '../components/product/product.component';
 import { ContactComponent } from '../components/contact/contact.component';

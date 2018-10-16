@@ -1,79 +1,92 @@
 <!------------------------------
         CONTACT_US STARTS
 ------------------------------>
-<section class="aboutus opacity-5">
-  <div class="jumbotron jumbotron-fluid bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <h1 class="display-4 mb-4">Contact us</h1>
-          <p class="lead">For more information regarding our products you can contact us here!
-          </p>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="mb-3 mt-4">
+          <h2 class="display-4">Contact us</h2>
+          <p class="lead">For more information regarding our products you can contact us by filling this form.</p>
         </div>
       </div>
-      <div class="row">
-        <div class="col-12 col-md-6">
-          <form class="mb-5 mb-md-0" >
-            <div class="form-group">
-              <label for="exampleInputName1">Name</label>
-              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Please enter your name">
+    </div>
+    <hr class="my-4">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" class="mb-5 mb-md-0">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" [ngClass]="{'is-invalid':name.touched && !name.valid}"
+              required ngModel #name="ngModel" name="name" minlength="2" aria-describedby="nameHelp" placeholder="Please enter your name" />
+            <div class="invalid-feedback" [hidden]="!name.errors?.required">Name is required</div>
+            <div class="invalid-feedback" [hidden]="!name.errors?.minlength">Name must be at least 2 characters </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" [ngClass]="{'is-invalid':email.touched && !email.valid}"
+              required ngModel name="email" #email="ngModel" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+              placeholder="Please enter your email" />
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <div class="invalid-feedback" [hidden]="!email.errors?.required">Email is required</div>
+            <div class="invalid-feedback" [hidden]="!email.errors?.pattern">Email is not valid</div>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <select class="custom-select form-control" name="subject" id="subject" #subject="ngModel" required ngModel
+              [ngClass]="{'is-invalid':subject.touched && !subject.valid}">
+              <option *ngFor="let subject of subjects; let i = index" [attr.selected]=" i == 0 ? 'selected' : null"
+                [attr.disabled]=" i == 0 ? 'disabled' : null" [attr.hidden]=" i == 0 ? 'hidden' : null" [attr.value]="i == 0 ? '' : null"
+                [value]="subject.name">{{ subject.name }}
+              </option>
+            </select>
+            <div class="invalid-feedback">Please choose subject</div>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea class="form-control" id="message" name="message" [ngClass]="{'is-invalid':message.touched && !message.valid}"
+              #message="ngModel" rows="5" placeholder="Type your message here" ngModel required minlength="20"></textarea>
+            <div class="invalid-feedback" [hidden]="!message.errors?.required">Message is required</div>
+            <div class="invalid-feedback" [hidden]="!message.errors?.minlength">Message must be at least 20 characters
             </div>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Password</label>
-              <input type="email" class="form-control" id="exampleInputPassword1" placeholder="Please enter your email">
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Example select</label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option>Product Product category 1</option>
-                  <option>Product category 2</option>
-                  <option>Product category 3</option>
-                  <option>Product category 4</option>
-                  <option>Product category 5</option>
-                </select>
-            </div>
-            <div class="form-group">
-              <label for="exampleFormControlTextarea1">Message</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" placeholder="Type your message here"></textarea>
-            </div>
-            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Send</button>
+          </div>
+          <button class="btn btn-lg btn-primary" data-toggle="modal" [disabled]="!contactForm.form.valid">Send</button>
         </form>
       </div>
-      <div class="col-12 col-md-5 my-auto ml-auto">
-        <div class="card card-body bg-primary">
-          <div class="lead mx-auto text-white">
-            eShop Limited Company<br/>
-            Email: contact@eShop.fronted<br/>
+      <div class="col-12 col-md-5 ml-auto">
+        <div class="card card-body">
+          <div class="lead mx-auto text-black-50">
+            World Wide Importers<br />
+            Email: contact@eShop.fronted<br />
             Tel. (615) 554-990
           </div>
         </div>
       </div>
     </div>
   </div>
-  </div>
 </section>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-        </div>
+<!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
+</div> -->
 
 <!------------------------------
     CONTACT_US ENDS

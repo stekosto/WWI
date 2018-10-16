@@ -4,6 +4,9 @@ import { DataService } from '../../services/data.service';
 import { Items } from '../../models/items';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { Subcategories } from '../../models/subcategories';
+import { map, flatMap, toArray } from 'rxjs/operators';
+import { CompService } from '../../services/comp.service';
 
 
 
@@ -14,30 +17,64 @@ import { Location } from '@angular/common';
 })
 export class ProductComponent implements OnInit {
   data: Data[];
-  item: Items = {
-    name: 'Bib',
-    description: 'Baby Bib helps with keeps baby cloth clean during meal time',
-    price: 12,
-    imagelink: 'string',
-    rating: 4,
-    stock: 12,
-    category: 'string',
-    subcategory: 'string'
-  };
+  subcategories: Subcategories[] = [];
+  items: Items[] = [];
+  products: Items[];
+  product = {} as Items;
+  productName: string;
+  quantityValue: number;
+  cartItems: Items[];
 
-  constructor(private dataService: DataService, private route: ActivatedRoute, private location: Location) {
-    console.log(this.route.snapshot.params['name']);
-   }
-
-  ngOnInit() {
-  this.dataService.getData().subscribe(incomingdata => {
-  this.data = incomingdata;
-  console.log(this.data);
-});
+  constructor(
+    private dataService: DataService,
+    private route: ActivatedRoute,
+    private location: Location,
+    private compService: CompService) {
+    this.productName = this.route.snapshot.params['name'];
+    // console.log(this.route.snapshot.params['name']);
+    this.dataService.getData().pipe<Items[]>(
+      flatMap(data => data),
+      map(data => data.subcategories),
+      flatMap(data => data),
+      map(data => data.items),
+      flatMap(data => data),
+      toArray()).subscribe(incomingdata => {
+        this.products = incomingdata;
+        this.getProduct();
+        // console.log(this.products);
+        this.product = this.products[0];
+      });
   }
 
-  onBack () {
+  ngOnInit() {
+  }
+
+  onBack() {
+    this.compService.setShowItems(true);
     this.location.back();
   }
 
+  getProduct() {
+    this.products = this.products.filter(item => {
+      // console.log(item);
+      return item.name === this.productName;
+    });
+    return this.products ? this.products[0] : null;
+
+  }
+
+  addToCart() {
+    this.cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    this.cartItems.unshift(this.products[0]);
+    localStorage.setItem('cart', JSON.stringify(this.cartItems));
+    console.log(this.products);
+  }
+
+  setQuantity(value) {
+    // console.log(value);
+  }
+
+
 }
+
+

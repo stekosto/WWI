@@ -1,17 +1,18 @@
-import { Component, OnInit, DoCheck } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { Data } from '../../models/data';
 import { Items } from '../../models/items';
 import { Subcategories } from '../../models/subcategories';
-import { take, skip, filter, map, flatMap, tap, mergeAll, toArray} from 'rxjs/operators';
-import { of } from 'rxjs';
+import { take, skip, filter, map, flatMap, tap, mergeAll, toArray } from 'rxjs/operators';
+import { CompService } from 'src/app/services/comp.service';
+declare var $: any;
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   // data: any;
   data: Data[];
   subcategories: Subcategories[];
@@ -24,44 +25,71 @@ export class HomeComponent implements OnInit {
   chooseProduct: number;
   dataJson: Object;
   object: Object;
-  carouselInterval: number;
-  carouselDataRide: boolean;
+  carouselInterval: any = false;
+  carouselRide: string = 'false';
+  carouselWrap: boolean = false;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private compService: CompService) { }
 
   ngOnInit() {
-    this.dataService.getData().pipe<Items[]> (
-      // tap<Data> (data => console.log(data)),
-    flatMap(data => data),
-    // tap (data => console.log(data)),
-    map(subcategories => subcategories.subcategories),
-    // tap (subcategories => console.log(subcategories)),
-    flatMap(data => data),
-    // tap (items => console.log(items)),
-    map(subcategories => subcategories.items),
-    // tap (products => console.log(products)),
-    flatMap(data => data), take(5),
-    // tap (item => console.log(item)),
-    // map(items => items)
-    toArray()).subscribe(incomingdata => {
-      this.items = incomingdata;
-      console.log(this.items);
-      // this.dataArray = Object.keys(incomingdata);
-      // this.dataString = JSON.stringify(incomingdata);
-      // this.dataJson = JSON.parse(this.dataString);
-      // console.log(incomingdata);
-      // console.log(this.items);
-      // console.log(this.dataArray);
-      // console.log(this.dataString);
-      // console.log(this.dataJson);
+    this.dataService.getData().pipe<Items[]>(
+      flatMap(data => data),
+      map(subcategories => subcategories.subcategories),
+      flatMap(data => data),
+      map(subcategories => subcategories.items),
+      flatMap(data => data), take(5),
+      toArray()).subscribe(incomingdata => {
+        this.items = incomingdata;
+        // console.log(this.items);
+        // this.dataArray = Object.keys(incomingdata);
+        // this.dataString = JSON.stringify(incomingdata);
+        // this.dataJson = JSON.parse(this.dataString);
+      });
+  }
+
+  ngOnChanges() {
+
+  }
+
+  ngOnDestroy() {
+    // this.compService.setShowItems(undefined);
+  }
+
+  onCarouselStart() {
+    // // $('.carousel').carousel('dispose')
+    // $('.carousel').carousel({
+    // //  pause: true,
+    // //  dispose: true,
+    //  interval: 3000,
+    //  cycle: true
+    //  });
+    // this.carouselInterval = 3000;
+    // this.carouselRide = 'carousel';
+
+    //  $('.carousel').carousel('next');
+    $('.carousel').carousel('cycle');
+    $('.carousel').carousel({
+      interval: 3000
     });
 
   }
 
-onCarouselStart() {
-    this.carouselInterval = 3000;
-    this.carouselDataRide = false;
-    console.log(this.carouselDataRide);
+  onCarouselNext() {
+    // $('.carousel').carousel('next');
+    $('.carousel').carousel('pause');
+    this.carouselInterval = 'false';
+    this.carouselRide = 'false';
+
+  }
+
+  onCarouselPrev() {
+    // $('.carousel').carousel('prev');
+     $('.carousel').carousel('pause');
+     this.carouselInterval = 'false';
+     this.carouselRide = 'false';
+
+
+
   }
 }
 
