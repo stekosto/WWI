@@ -12,7 +12,7 @@ import { Subcategories } from '../../models/subcategories';
 export class ShoppingComponent implements OnInit, OnChanges, DoCheck {
   data: Data[];
   isTrue = false;
-  showitems = undefined;
+  showitems = false;
   sortingValue: string = '1';
   inStock: boolean;
 
@@ -34,6 +34,8 @@ export class ShoppingComponent implements OnInit, OnChanges, DoCheck {
       // console.log('inStock: ' + this.inStock);
     });
 
+    this.compService.setSortingValue(this.sortingValue);
+
   }
 
   ngDoCheck() {
@@ -43,18 +45,20 @@ export class ShoppingComponent implements OnInit, OnChanges, DoCheck {
 
   }
 
-  
-
   getSubcat(data: Data) {
-    this.compService.setSubCat(data);
+    // this.showitems = false;
     this.compService.setShowItems(false);
+    this.compService.setSubCat(data);
+    console.log('showite shopping.comp: ' + this.showitems);
   }
 
   getProductName(subcategories: Subcategories) {
-    this.compService.setProductName(subcategories);
+    console.log('gerProductName() in shopping.component STARTS');
     this.compService.setShowItems(true);
     this.compService.setSortingValue(this.sortingValue);
     this.compService.setFilterStockValue(this.inStock);
+    this.compService.setProductName(subcategories);
+    console.log('gerProductName() in shopping.component ENDS');
   }
 
 }

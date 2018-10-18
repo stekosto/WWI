@@ -10,34 +10,48 @@ import { map, flatMap, toArray } from 'rxjs/operators';
   styleUrls: ['./shopping-list-cat.component.scss']
 })
 export class ShoppingListCatComponent implements OnInit {
-  showitems = false;
+  // @Input() showitems: boolean;
+  showitems: boolean;
   subcategories: Subcategories[] = [];
   allSubcat: Subcategories[];
   subcat: Subcategories[];
+  sortingValue: string;
+  filteringValue: boolean;
   constructor(private dataService: DataService, private compService: CompService) { }
 
   ngOnInit() {
+
+    this.compService.setStateShowItem.subscribe(incomingstate => {
+      if (incomingstate !== null) {
+        this.showitems = incomingstate;
+        console.log('show/hide (false/true) shopping-list-cat component: ' + incomingstate);
+      }
+    });
+
+    console.log('showitems ngOnInit shopping-list-cat: ' + this.showitems);
+
     this.dataService.getData().pipe<Subcategories[]>(
       flatMap(data => data),
       map(subcategories => subcategories.subcategories),
       flatMap(data => data), toArray()).subscribe(incAllSubcat => {
         this.allSubcat = incAllSubcat;
-        console.log(this.allSubcat);
+        // console.log(this.allSubcat);
       });
-
-
-    this.compService.setStateShowItem.subscribe(incomingstate => {
-      if (incomingstate !== null) {
-        this.showitems = incomingstate;
-        // console.log(incomingstate);
-      }
-    });
 
     this.compService.selectedSubCat.subscribe(incomingsub => {
       if (incomingsub.category !== null) {
           this.subcat = incomingsub.subcategories;
           // console.log('tgertete' + JSON.stringify(this.subcat));
       }
+    });
+
+    this.compService.selectedSortingValue.subscribe(incSortingValue => {
+      this.sortingValue = incSortingValue;
+      // console.log('inSortingValue ngOnInit shopping-list-cat: ' + incSortingValue);
+    });
+
+    this.compService.selectedFilteredStockValue.subscribe(incFilteringValue => {
+      this.filteringValue = incFilteringValue;
     });
 
 // if (this.subcat === null) {
@@ -47,14 +61,22 @@ export class ShoppingListCatComponent implements OnInit {
 //   this.subcategories = this.subcat;
 //   // console.log(this.subcategories);
 // }
-
 }
 
+
+
   getProductName(subcategories: Subcategories) {
-    this.compService.setProductName(subcategories);
-    this.compService.setShowItems(true);
+    console.log('showitems shopping-list-cat: ' + this.showitems);
     console.log(subcategories);
-    console.log('sh-l-cat: ' + this.showitems);
+    this.compService.setShowItems(true);
+    this.compService.setProductName(subcategories);
+    console.log('BEFORE SET Sorting value / shopping-list-cat.comp :' + this.sortingValue);
+    this.compService.setSortingValue(this.sortingValue);
+    console.log('AFTER SET Sorting value / shopping-list-cat.comp :' + this.sortingValue);
+    console.log('BEFORE SET filterring value / shopping-list-cat.comp :' + this.filteringValue);
+    this.compService.setFilterStockValue(this.filteringValue);
+    console.log('AFTER SET filterring value / shopping-list-cat.comp :' + this.filteringValue);
+
   }
 
 }

@@ -6,14 +6,14 @@
         <h2>{{ product.name }}</h2>
         <h4>Rating {{ product.rating }}</h4>
         <h4>In stock: {{ product.stock }} pcs</h4>
-        <h4>Price {{ product.price | currency: USD }}</h4>
+        <h4>Price {{ product.price | currency }}</h4>
         <h5>Description: {{ product.description }}</h5>
         <form>
         <div class="form-group">
         <label for="quantity"class="lead mr-2">Qty: </label><input type="number" name="quantity" [value]="1" (change)='setQuantity($event.target.value)'
         [(ngModel)]="quantityValue">
       </div>
-      <button class="btn btn-primary d-block mt-2" (click)='addToCart()'>Add</button>
+      <button class="btn btn-primary d-block mt-2" (click)='addToCart(quantityValue)'>Add</button>
       </form>
         
         <button class="btn btn-info mt-2" (click)="onBack()">Back</button>

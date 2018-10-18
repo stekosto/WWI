@@ -43,10 +43,12 @@ this.compService.selectedItemOfItemInValue.subscribe(incNumberOfItems => {
 
 
   getInStock(value: boolean)  {
+    console.log('shopping-toolbar.comp fliterStockValue :' + value);
     this.compService.setFilterStockValue(value);
   }
 
   getSortingValue(value: string) {
+  console.log('shopping-toolbar.comp sortingValue :' + value);
   this.compService.setSortingValue(value);
   }
 

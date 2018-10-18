@@ -6,5 +6,6 @@ export interface Items {
     rating: number,
     stock: number,
     category: string,
-    subcategory: string
+    subcategory: string,
+    quantity?: number
 }

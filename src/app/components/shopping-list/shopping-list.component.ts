@@ -1,16 +1,17 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { CompService } from '../../services/comp.service';
 import { Data } from '../../models/data';
 import { Items } from '../../models/items';
 import { Subcategories } from '../../models/subcategories';
 import { OfInTotal } from '../../models/of-in-total';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-shopping-list',
   templateUrl: './shopping-list.component.html',
   styleUrls: ['./shopping-list.component.scss']
 })
-export class ShoppingListComponent implements OnInit, OnChanges {
+export class ShoppingListComponent implements OnInit, DoCheck {
   data: Data[];
   subcategories: Subcategories[];
   items: Items[];
@@ -26,13 +27,17 @@ export class ShoppingListComponent implements OnInit, OnChanges {
   filteringValue: boolean;
   filteredProducts: Items[] = [];
   numberOfItems: OfInTotal;
-  constructor(private compService: CompService) { }
+  cartItems: Items[];
+  sortingValue: string;
+
+  constructor(private compService: CompService, private cartService: CartService) { }
 
   ngOnInit() {
+    // show this component - showitems
     this.compService.setStateShowItem.subscribe(incomingstate => {
       if (incomingstate !== null) {
         this.showitems = incomingstate;
-        console.log('sh-list: ' + this.showitems);
+        console.log('show/hide (true/false) shopping-list component: ' + this.showitems);
       }
     });
 
@@ -40,49 +45,46 @@ export class ShoppingListComponent implements OnInit, OnChanges {
       current: null,
       total: null
     };
-    this.compService.selectedSubCat.subscribe(incomingdata => {
-      if (incomingdata.category !== null) {
-          this.subcategories = incomingdata.subcategories;
-          // console.log(this.subcategories);
-      }
-    }
-    );
 
+// get data - subcategories
+    // this.compService.selectedSubCat.subscribe(incomingdata => {
+    //   if (incomingdata.category !== null) {
+    //       this.subcategories = incomingdata.subcategories;
+    //       console.log('geta data subcategories / shopping-list.comp');
+    //       console.log(this.subcategories);
+    //   }
+    // });
+// get data - items
     this.compService.selectProductName.subscribe(
     incomingsubcat => {
      if (incomingsubcat.items !== null)  {
     this.items = incomingsubcat.items;
     this.copyItems = [...incomingsubcat.items];
-    // console.log('this.items: ');
-    console.log('this.copyItems');
+    console.log('Get items from compService / shopping-list.comp');
     console.log(this.copyItems);
+    this.sortBy(this.sortingValue);
     }
   });
 
+ // get the sorting value (1,2,3,4)
+    this.compService.selectedSortingValue.subscribe(value => {
+      this.sortingValue = value;
+    });
 
+//   get inStock filter value (true / false )
     this.compService.selectedFilteredStockValue.subscribe(incomingStockValue => {
       if (incomingStockValue !== null) {
         this.filteringValue = incomingStockValue;
-        this.filterBy();
-        // if (this.filteringValue === true && this.items != null) {
-        //   this.items = this.items.filter(this.filterbyStock);
-        // } else if (this.filteringValue === false && this.items != null) {
-        //   this.items = this.copyItems;
-        // }
       }
     });
 
-    this.compService.selectedSortingValue.subscribe(value => {
-      this.sortBy(value);
-    });
-
-  }
-
-
-ngOnChanges () {
-
 }
 
+
+ngDoCheck() {
+  console.log('ngDoCheck remalaka');
+  this.sortBy(this.sortingValue);
+}
 
 sortBy (value) {
   if (value !== null && this.items !== undefined) {
@@ -90,10 +92,11 @@ sortBy (value) {
     switch (value) {
     case '1':
     this.products = this.copyItems;
-    // this.products = this.items.sort(this.sortByNone);
-    // this.items = this.copyItems;
-    console.log('filter none filteredProducts' + this.products);
+    console.log('case 1:none BEFORE filterBy() - products: ');
+    console.log(this.products);
     this.filterBy();
+    console.log('case 1:none AFTER filterBy() - filteredProducts: ');
+    console.log(this.filteredProducts);
     break;
     case '2':
     this.itemProperty = 'price';
@@ -144,6 +147,7 @@ sortByPrice (item1: Items, item2: Items ) {
 
 filterBy () {
   if (this.filteringValue === true && this.products != null) {
+    // console.log('if in fliterBy() - filteringValue :' + this.filteringValue);
     this.numberOfItems.total = this.products.length;
     this.filteredProducts = this.products.filter(this.filterbyStock).map(filteredValue => filteredValue);
     this.numberOfItems.current = this.filteredProducts.length;
@@ -151,6 +155,7 @@ filterBy () {
   } else if (this.filteringValue === false && this.products != null) {
     // fliteredProducts = this.products.map(filteredValue => filteredValue);
     // this.products = fliteredProducts;
+    // console.log('else if in fliterBy() - filteringValue :' + this.filteringValue);
     this.numberOfItems.total = this.products.length;
     this.filteredProducts = this.products.filter(this.unfilterbyStock).map(filteredValue => filteredValue);
     this.numberOfItems.current = this.filteredProducts.length;
@@ -158,8 +163,8 @@ filterBy () {
     // console.log(this.numberOfItems);
   }
   this.compService.setItemOfItemIn(this.numberOfItems);
-  console.log('filteredProducts');
-  console.log(this.filteredProducts);
+  // console.log('filteredProducts');
+  // console.log(this.filteredProducts);
 }
 
 filterbyStock (item: Items) {
@@ -172,6 +177,10 @@ unfilterbyStock (item: Items) {
     if (item.stock !== null && item.stock >= 0 ) {
       return true;
     }
+  }
+
+  addToCart(item) {
+   this.cartService.addItemToCart(item);
   }
 
 }

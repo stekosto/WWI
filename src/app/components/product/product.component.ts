@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { Subcategories } from '../../models/subcategories';
 import { map, flatMap, toArray } from 'rxjs/operators';
 import { CompService } from '../../services/comp.service';
+import { CartService } from 'src/app/services/cart.service';
 
 
 
@@ -22,14 +23,15 @@ export class ProductComponent implements OnInit {
   products: Items[];
   product = {} as Items;
   productName: string;
-  quantityValue: number;
+  quantityValue: number = 1;
   cartItems: Items[];
 
   constructor(
     private dataService: DataService,
     private route: ActivatedRoute,
     private location: Location,
-    private compService: CompService) {
+    private compService: CompService,
+    private cartService: CartService) {
     this.productName = this.route.snapshot.params['name'];
     // console.log(this.route.snapshot.params['name']);
     this.dataService.getData().pipe<Items[]>(
@@ -63,12 +65,14 @@ export class ProductComponent implements OnInit {
 
   }
 
-  addToCart() {
-    this.cartItems = JSON.parse(localStorage.getItem('cart')) || [];
-    this.cartItems.unshift(this.products[0]);
-    localStorage.setItem('cart', JSON.stringify(this.cartItems));
-    console.log(this.products);
-  }
+  addToCart(qvalue) {
+  for (let i = 0; i < qvalue; i++) {
+  this.cartService.addItemToCart(this.products[0]);
+  console.log(this.quantityValue);
+}
+}
+
+
 
   setQuantity(value) {
     // console.log(value);
