@@ -7,5 +7,8 @@ export interface Items {
     stock: number,
     category: string,
     subcategory: string,
-    quantity?: number
+}
+
+export interface CartItems extends Items {
+     quantity?: number
 }

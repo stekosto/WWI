@@ -1,12 +1,19 @@
-<div  *ngIf="!showitems" class="row" >
-<a (click)="getProductName(subcategory)" class="col-3 lead text-dark cursor card card-body text-center m-3 p-3 bg-white" *ngFor="let subcategory of subcat">
-              <img class="w-100" src="{{ subcategory.items[0]?.imagelink }}" alt="">
-            {{ subcategory.name }}</a>
+<div *ngIf="!showitems" class="row">
+  <div class="col-12 col-md-6 col-lg-4 mb-3 d-flex align-items-stretch" *ngFor="let subcategory of subcat">
+    <div class="w-100 border">
+      <a class="wrapper d-block image-container-height" (click)="getProductName(subcategory)">
+        <img class="card-img-top px-5 pt-4 image-height mx-auto" src="{{ subcategory.items[0]?.imagelink }}" alt="{{ subcategory.name }}" />
+      </a>
+      <div class="card-body text-center d-flex align-items-center">
+        <p class="card-text lead mx-auto text-center">{{ subcategory.name }}</p>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
+
 <!-- <div *ngIf="showitems === undefined" class="row">
   <a (click)="getProductName(subcategory)" class="col-3 lead text-dark cursor card card-body text-center m-3 p-3 bg-white" *ngFor="let subcategory of allSubcat"><img class="w-100" src="{{ subcategory.items[0]?.imagelink }}" alt="">{{ subcategory.name }}</a>
 </div> -->
-
-
-
-

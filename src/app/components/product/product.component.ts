@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Data } from 'src/app/models/data';
 import { DataService } from '../../services/data.service';
-import { Items } from '../../models/items';
+import { Items, CartItems } from '../../models/items';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subcategories } from '../../models/subcategories';
 import { map, flatMap, toArray } from 'rxjs/operators';
 import { CompService } from '../../services/comp.service';
 import { CartService } from 'src/app/services/cart.service';
+import objectFitImages from 'object-fit-images';
 
 
 
@@ -20,7 +21,7 @@ export class ProductComponent implements OnInit {
   data: Data[];
   subcategories: Subcategories[] = [];
   items: Items[] = [];
-  products: Items[];
+  products: CartItems[];
   product = {} as Items;
   productName: string;
   quantityValue: number = 1;
@@ -49,6 +50,7 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit() {
+    objectFitImages();
   }
 
   onBack() {
@@ -71,8 +73,6 @@ export class ProductComponent implements OnInit {
   console.log(this.quantityValue);
 }
 }
-
-
 
   setQuantity(value) {
     // console.log(value);

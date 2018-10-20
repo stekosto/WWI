@@ -15,14 +15,15 @@ export class ShoppingToolbarComponent implements OnInit {
   selectedOption: boolean = false;
   sortingValue: string = '1';
   options: Array<Object> = [
-    {name: 'None', value: '1'} ,
-    {name: 'Price', value: '2'},
-    {name: 'Alphabetical', value: '3'},
-    {name: 'Rating', value: '4'},
+    { name: 'None', value: '1' },
+    { name: 'Price', value: '2' },
+    { name: 'Alphabetical', value: '3' },
+    { name: 'Rating', value: '4' },
   ];
   products: Subcategories;
   catname: string;
   numberOfItems: OfInTotal;
+  showItemValue: boolean = false;
 
   constructor(private compService: CompService) { }
 
@@ -33,23 +34,27 @@ export class ShoppingToolbarComponent implements OnInit {
         this.catname = incProducts.name;
         // console.log(this.products);
       }
-);
+    );
 
-this.compService.selectedItemOfItemInValue.subscribe(incNumberOfItems => {
-  this.numberOfItems = incNumberOfItems;
-  // console.log(this.numberOfItems);
-});
+    this.compService.selectedItemOfItemInValue.subscribe(incNumberOfItems => {
+      this.numberOfItems = incNumberOfItems;
+      // console.log(this.numberOfItems);
+    });
+
+    this.compService.setStateShowItem.subscribe( incShowItemValue => {
+      this.showItemValue = incShowItemValue;
+    });
   }
 
 
-  getInStock(value: boolean)  {
-    console.log('shopping-toolbar.comp fliterStockValue :' + value);
-    this.compService.setFilterStockValue(value);
+  getInStockValue(event) {
+    // console.log('shopping-toolbar.comp fliterStockValue :' + event.target.checked);
+    this.compService.setFilterStockValue(event.target.checked);
   }
 
   getSortingValue(value: string) {
-  console.log('shopping-toolbar.comp sortingValue :' + value);
-  this.compService.setSortingValue(value);
+    console.log('shopping-toolbar.comp sortingValue :' + value);
+    this.compService.setSortingValue(value);
   }
 
 

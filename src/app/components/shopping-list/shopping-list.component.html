@@ -1,41 +1,23 @@
-<span *ngIf="showitems">
+<div *ngIf="showitems">
     <div class="row" *ngIf="filteredProducts?.length > 0">
-        <!-- <div class="col-3" *ngFor="let item of filteredProducts">
-            <figure class="figure card card-body mb-3">
-                <a href="" [routerLink]="['/product', item.name]" routerLinkActive="router-link-active"><img src="{{ item.imagelink }}"
-                        class="figure-img img-fluid rounded" alt="{{ item.name }}"></a>
-                <figcaption class="figure-caption text-right">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">{{ item.name }} </li>
-                        <li class="breadcrumb-item">Price: {{ item.price | currency: USD }}</li>
-                        <li class="breadcrumb-item active">Rating: {{ item.rating }}</li>
-                        <li class="breadcrumb-item active">in Stock: {{ item.stock }}</li>
-                    </ol>
-                </figcaption>
-            </figure>
-        </div> -->
-
-        <div class="col-12 col-md-6 col-lg-3 mb-5" *ngFor="let item of filteredProducts">
-            <div class="card">
-                <a class="wrapper d-block" [routerLink]="['/product', item.name]" routerLinkActive="router-link-active">
-                    <img class="card-img-top mt-5" src="{{ item.imagelink}}" alt="{{ item.name }}" />
+        <div class="col-12 col-md-6 col-lg-4 mb-3 d-flex d-flex-row align-items-stretch" *ngFor="let item of filteredProducts">
+            <div class="w-100 border">
+                <a class="d-block text-center image-container-height" [routerLink]="['/product', item.name]" routerLinkActive="router-link-active">
+                    <img class="px-5 pt-4 d-block img-fluid image-height mx-auto" src="{{ item.imagelink}}" alt="{{ item.name }}" />
                 </a>
-                    <div class="card-body">
-                        <h5 class="text-center lead">{{ item.name }}</h5>
-                        <span class="font-italic text-center mb-4 text-primary h5">
-                            Price: {{ item.price }}
-                        </span>
-                        <a (click)="addToCart(item)" class="btn btn-outline-danger w-75 mt-auto mx-auto">Add to Cart</a>
-                
+                <div class="card-body text-center d-flex flex-column align-items-center">
+                    <p class="card-text mx-auto text-center ">{{ item.name }}</p>
+                    <span class="text-center text-info">
+                        Price: {{ item.price | currency: USD }}
+                    </span>
+                    <a (click)="addToCart(item)" class="btn btn-primary mt-3 text-white">Add to Cart</a>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="row" *ngIf="filteredProducts?.length === 0">
         <div class="col-12">
-            <div class="lead text-center display-4">No products yet!</div>
-            </div>
+            <div class="text-center h4 mt-5">No products yet in this category, come back later!</div>
+        </div>
     </div>
-
-</span>
+</div>

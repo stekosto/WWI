@@ -19,6 +19,7 @@ import { FiltersubPipe } from './pipes/filtersub.pipe';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 import { ShoppingListCatComponent } from './components/shopping-list-cat/shopping-list-cat.component';
 import { ShoppingToolbarComponent } from './components/shopping-toolbar/shopping-toolbar.component';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ShoppingToolbarComponent } from './components/shopping-toolbar/shopping
     FiltersubPipe,
     ShoppingListComponent,
     ShoppingListCatComponent,
-    ShoppingToolbarComponent
+    ShoppingToolbarComponent,
+    StarRatingComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import { CompService } from '../../services/comp.service';
 import { DataService } from '../../services/data.service';
 import { Subcategories } from '../../models/subcategories';
 import { map, flatMap, toArray } from 'rxjs/operators';
+import objectFitImages from 'object-fit-images';
 
 @Component({
   selector: 'app-shopping-list-cat',
@@ -20,7 +21,7 @@ export class ShoppingListCatComponent implements OnInit {
   constructor(private dataService: DataService, private compService: CompService) { }
 
   ngOnInit() {
-
+    objectFitImages();
     this.compService.setStateShowItem.subscribe(incomingstate => {
       if (incomingstate !== null) {
         this.showitems = incomingstate;

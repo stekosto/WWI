@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Items } from '../models/items';
+import { Items, CartItems } from '../models/items';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -20,16 +20,16 @@ items: Items[];
     return of(this.items);
   }
 
-    addItemToCart(product: Items) {
-    this.items = JSON.parse(localStorage.getItem('cart')) || [];
-    this.items.unshift(product);
-    localStorage.setItem('cart', JSON.stringify(this.items));
- }
+ addItemToCart(product: Items) {
+  this.items = JSON.parse(localStorage.getItem('cart')) || [];
+  this.items.unshift(product);
+  localStorage.setItem('cart', JSON.stringify(this.items));
+}
+
 
 addItemsToCart(products: Items[]) {
   localStorage.setItem('cart', JSON.stringify(products));
 }
-
 
 removeItemFromCart (product: Items) {
   const productsTemp = this.items.filter( value => {

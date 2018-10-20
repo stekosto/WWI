@@ -5,6 +5,7 @@ import { Items } from '../../models/items';
 import { Subcategories } from '../../models/subcategories';
 import { OfInTotal } from '../../models/of-in-total';
 import { CartService } from 'src/app/services/cart.service';
+import objectFitImages from 'object-fit-images';
 
 @Component({
   selector: 'app-shopping-list',
@@ -33,6 +34,7 @@ export class ShoppingListComponent implements OnInit, DoCheck {
   constructor(private compService: CompService, private cartService: CartService) { }
 
   ngOnInit() {
+    objectFitImages();
     // show this component - showitems
     this.compService.setStateShowItem.subscribe(incomingstate => {
       if (incomingstate !== null) {

@@ -1,6 +1,6 @@
-import { Component, OnInit, OnChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewChild, DoCheck } from '@angular/core';
 import { CompService } from '../../services/comp.service';
-import { Items } from '../../models/items';
+import { Items, CartItems } from '../../models/items';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -8,10 +8,10 @@ import { CartService } from 'src/app/services/cart.service';
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.scss']
 })
-export class CartComponent implements OnInit, OnChanges {
+export class CartComponent implements OnInit, OnChanges, DoCheck {
   items: any[];
   product: Items;
-  products: Items[] = [];
+  products: CartItems[] = [];
   productsTemp: Items[] = [];
   totalPrice: number = null;
   productQuantity: number = null;
@@ -33,19 +33,16 @@ export class CartComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.getFromCart();
     this.emptyShoppingCart();
-    // this.getProductQuantity();
   }
 
   ngOnChanges() {
-    this.emptyShoppingCart();
+    // console.log('ngOnChanges remalaka');
   }
 
-
-  // getProductQuantity() {
-  //   const sum = this.items.reduce((accumulator, currentValue) => accumulator + currentValue.quantity, 1);
-  //   console.log(this.items);
-  //   console.log(sum);
-  // }
+  ngDoCheck() {
+    // this.emptyShoppingCart();
+    // console.log('ngDoCheck remalaka');
+  }
 
  emptyShoppingCart() {
     if (this.products === undefined || this.products.length === 0) {
@@ -54,42 +51,16 @@ export class CartComponent implements OnInit, OnChanges {
     }
   }
 
-  // onAddToCart(product, qvalue, name, ) {
-  //   this.cartService.removeItemFromCart(product);
-  //   for (let i = 0; i < qvalue; i++) {
-  //     this.cartService.addItemToCart(product);
-  //     console.log(product.quantity);
-  //   }
-  //   this.getFromCart();
-  //   console.log(qvalue);
-  //   console.log(name);
-  //   console.log(this.products);
-  // }
-
   onAddToCart(product) {
-    console.log(product);
+    console.log('onAddToCart() in shopping-cart.component STARTS');
     this.products.forEach((currentItem) => {
       if (currentItem.name === product.name) {
         return this.oldQuantity = currentItem.quantity;
       }
     });
 
-    console.log(this.oldQuantity);
-    // let item = <Items>{};
-    // item = product;
-    // console.log(this.products);
-
-    // for (let i = 0; i < qvalue; i++) {
-    //   this.cartService.addItemToCart(product);
-    //   console.log(product.quantity);
-    // }
-    // this.getFromCart();
-    // console.log(qvalue);
-    // console.log(name);
-    // console.log(this.products);
+    console.log('onAddToCart() in shopping-cart.component ENDS');
   }
-
-
 
   OnRemoveFromCart(product) {
     this.cartService.removeItemFromCart(product);
@@ -126,45 +97,5 @@ export class CartComponent implements OnInit, OnChanges {
 
     console.log(this.products);
   }
-
-
-
-    //  const productsTemp = this.items.filter( value => {
-    //    return item.name !== value.name; })
-    //    .map(filteredValue => filteredValue);
-    // this.items.forEach((current, index) => {
-    //   if (cartItem.name === current.name) {
-    //     this.items.splice(index, 1);
-    //   }
-    // });
-    // console.log(productsTemp);
-    // this.items = productsTemp;
-    // localStorage.setItem('cart', JSON.stringify(this.items));
-    // console.log(productsTemp);
-  
-
-  // get items from localStorage - drop the duplicates
-  
-  // if (localStorage.getItem('cart') === null) {
-  //   this.items = [];
-  // } else {
-  //   this.items = JSON.parse(localStorage.getItem('cart'));
-  // }
-  // this.items = JSON.parse(localStorage.getItem('cart')) || [];
-
-  // this.productsTemp = this.items.reduce((unique, item) => {
-  //   if (!unique.some(obj => obj.name === item.name && obj.name === item.name)) {
-  //     console.log('some ' + item.name);
-  //     unique.push(item);
-  //   }
-  //   return unique;
-  // }, []);
-
-  // this.getQuantity();
-
-  // }
-
-  // create an array only from unique items of the localstorage array >> this.items ('cart')
-  // push the quantity property into each cart item object
 
 }

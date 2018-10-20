@@ -15,6 +15,7 @@ export class ShoppingComponent implements OnInit, OnChanges, DoCheck {
   showitems = false;
   sortingValue: string = '1';
   inStock: boolean;
+  selectedOption: boolean = false;
 
   constructor(private dataService: DataService, private compService: CompService) { }
 
