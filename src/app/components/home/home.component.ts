@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit, OnChanges, OnDestroy {
   ngOnDestroy() {
   }
 
-  onCarouselStart() {
+  onCarouselStart(event) {
     this.compService.setCarouselCycle(event);
     // $('.carousel').carousel('cycle');
     // this.carouselInterval = 3000;
