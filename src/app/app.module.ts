@@ -20,6 +20,8 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
 import { ShoppingListCatComponent } from './components/shopping-list-cat/shopping-list-cat.component';
 import { ShoppingToolbarComponent } from './components/shopping-toolbar/shopping-toolbar.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { CarouselComponent } from './components/carousel/carousel.component';
 
 @NgModule({
   declarations: [
@@ -38,13 +40,15 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
     ShoppingListComponent,
     ShoppingListCatComponent,
     ShoppingToolbarComponent,
-    StarRatingComponent
+    StarRatingComponent,
+    CarouselComponent
   ],
   imports: [
     BrowserModule,
     AppRouterModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbCarouselModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent],

@@ -1,7 +1,7 @@
 <div *ngIf="showitems">
     <div class="row" *ngIf="filteredProducts?.length > 0">
         <div class="col-12 col-md-6 col-lg-4 mb-3 d-flex d-flex-row align-items-stretch" *ngFor="let item of filteredProducts">
-            <div class="w-100 border">
+            <div class="w-100 bg-white">
                 <a class="d-block text-center image-container-height" [routerLink]="['/product', item.name]" routerLinkActive="router-link-active">
                     <img class="px-5 pt-4 d-block img-fluid image-height mx-auto" src="{{ item.imagelink}}" alt="{{ item.name }}" />
                 </a>
@@ -10,7 +10,7 @@
                     <span class="text-center text-info">
                         Price: {{ item.price | currency: USD }}
                     </span>
-                    <a (click)="addToCart(item)" class="btn btn-primary mt-3 text-white">Add to Cart</a>
+                    <a (click)="addToCart(item)" class="btn btn-dark mt-3 text-white">Add to Cart</a>
                 </div>
             </div>
         </div>

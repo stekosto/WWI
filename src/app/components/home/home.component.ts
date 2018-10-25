@@ -13,83 +13,45 @@ declare var $: any;
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnChanges, OnDestroy {
-  // data: any;
   data: Data[];
   subcategories: Subcategories[];
   subcategory: Subcategories;
   items: Items[];
   item: Items;
   dataArray: Object[];
-  activeClass: boolean = false;
   dataString: string;
   chooseProduct: number;
   dataJson: Object;
   object: Object;
-  carouselInterval: any = false;
-  carouselRide: string = 'false';
-  carouselWrap: boolean = false;
+  // carouselInterval: any = false;
+  // carouselRide: string = 'false';
+  // carouselWrap: boolean = false;
+  // activeClass: boolean = false;
 
-  constructor(private dataService: DataService, private compService: CompService) { }
+  constructor(private compService: CompService) {}
 
   ngOnInit() {
-    this.dataService.getData().pipe<Items[]>(
-      flatMap(data => data),
-      map(subcategories => subcategories.subcategories),
-      flatMap(data => data),
-      map(subcategories => subcategories.items),
-      flatMap(data => data), take(5),
-      toArray()).subscribe(incomingdata => {
-        this.items = incomingdata;
-        // console.log(this.items);
-        // this.dataArray = Object.keys(incomingdata);
-        // this.dataString = JSON.stringify(incomingdata);
-        // this.dataJson = JSON.parse(this.dataString);
-      });
   }
 
   ngOnChanges() {
-
   }
 
   ngOnDestroy() {
-    // this.compService.setShowItems(undefined);
   }
 
   onCarouselStart() {
-    // // $('.carousel').carousel('dispose')
-    // $('.carousel').carousel({
-    // //  pause: true,
-    // //  dispose: true,
-    //  interval: 3000,
-    //  cycle: true
-    //  });
+    this.compService.setCarouselCycle(event);
+    // $('.carousel').carousel('cycle');
     // this.carouselInterval = 3000;
     // this.carouselRide = 'carousel';
-
-    //  $('.carousel').carousel('next');
-    $('.carousel').carousel('cycle');
-    $('.carousel').carousel({
-      interval: 3000
-    });
-
   }
 
-  onCarouselNext() {
-    // $('.carousel').carousel('next');
-    $('.carousel').carousel('pause');
-    this.carouselInterval = 'false';
-    this.carouselRide = 'false';
+//   onCarouselNext() {
+//     $('.carousel').carousel('pause');
+//   }
 
-  }
-
-  onCarouselPrev() {
-    // $('.carousel').carousel('prev');
-     $('.carousel').carousel('pause');
-     this.carouselInterval = 'false';
-     this.carouselRide = 'false';
-
-
-
-  }
+//   onCarouselPrev() {
+//      $('.carousel').carousel('pause');
+//   }
 }
 

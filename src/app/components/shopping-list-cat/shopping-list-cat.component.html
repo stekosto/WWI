@@ -1,6 +1,6 @@
-<div *ngIf="!showitems" class="row">
+<div *ngIf="!showitems && this.allSubcat" class="row">
   <div class="col-12 col-md-6 col-lg-4 mb-3 d-flex align-items-stretch" *ngFor="let subcategory of subcat">
-    <div class="w-100 border">
+    <div class="w-100 bg-white">
       <a class="wrapper d-block image-container-height" (click)="getProductName(subcategory)">
         <img class="card-img-top px-5 pt-4 image-height mx-auto" src="{{ subcategory.items[0]?.imagelink }}" alt="{{ subcategory.name }}" />
       </a>

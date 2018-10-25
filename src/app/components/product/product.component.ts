@@ -26,6 +26,7 @@ export class ProductComponent implements OnInit {
   productName: string;
   quantityValue: number = 1;
   cartItems: Items[];
+  productNameAlert: string;
 
   constructor(
     private dataService: DataService,
@@ -67,12 +68,14 @@ export class ProductComponent implements OnInit {
 
   }
 
-  addToCart(qvalue) {
-  for (let i = 0; i < qvalue; i++) {
-  this.cartService.addItemToCart(this.products[0]);
-  console.log(this.quantityValue);
-}
-}
+  addToCart(qvalue, name) {
+    for (let i = 0; i < qvalue; i++) {
+      this.cartService.addItemToCart(this.products[0]);
+      this.productNameAlert =  name;
+      console.log(this.quantityValue);
+    }
+    alert(`${this.quantityValue} ${name}(s)  added to Shopping Cart`);
+  }
 
   setQuantity(value) {
     // console.log(value);

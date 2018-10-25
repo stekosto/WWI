@@ -1,6 +1,5 @@
 <div class="container">
     <app-shopping-toolbar></app-shopping-toolbar>
-    <hr />
     <div class="row">
         <div class="col-6 col-md-4">
             <div class="wrapper">
@@ -12,13 +11,13 @@
                             href="{{ '#pageSubmenu' + i }}" 
                             data-toggle ="collapse" 
                             aria-expanded = "false"
-                            class="dropdown-toggle" 
+                            class="dropdown-toggle font-weight-light h5 text-dark" 
                             (click)="getSubcat(item)">{{ item.category }}
                             </a>
                             
                             <ul 
                             id="vert-subcat" 
-                            class="collapse list-unstyled ml-3" 
+                            class="collapse list-unstyled ml-3 font-weight-light" 
                             id="{{ 'pageSubmenu' + i }}"
                             >
                                 <li *ngFor="let subItem of item['subcategories']" class="text-nowrap">

@@ -1,6 +1,6 @@
-<section class="border-bottom">
+<section class="border-bottom bg-white mt-5">
   <div class="container">
-    <div class="row ">
+    <div class="row">
       <div class="col-12 col-md-5 image-container-height text-center">
         <img *ngIf="product.imagelink" [src]="product.imagelink" class="d-block img-fluid image-height p-5 mx-auto" alt="{{ product.name }}" />
       </div>
@@ -17,13 +17,16 @@
                 <li class="list-group-item border-0 pt-0 font-weight-light"><span class="font-weight-bold">In stock: </span>{{ product.stock }} pcs</li>
                 <li class="list-group-item border-0 pb-1 font-weight-bold">Quantity</li>
               </ul>
-          <div class="input-group mb-4 w-50 mx-auto ml-md-3 mb-md-2 "> 
-          <input type="number" class="form-control" [value]="1" [(ngModel)]="quantityValue" (change)='setQuantity($event.target.value)'
-            aria-label="Product Quantity" aria-describedby="button-addon2"id="quantity" />
-           
-          <div class="input-group-append"><button class="btn btn-dark" type="button" id="quantitybtn" (click)='addToCart(quantityValue)'>Add
-            to Cart</button>
-          </div>
+          <div class="input-group mb-4 text-center mx-auto ml-md-3 mb-md-2"> 
+          
+            
+              <input type="number" class="product ml-5 ml-md-0" [value]="1" [(ngModel)]="quantityValue" (change)='setQuantity($event.target.value)' aria-label="Product Quantity" aria-describedby="button-addon2"id="quantity" />
+             
+            <!-- <div class="input-group-append"> -->
+              <button class="btn btn-dark" type="button" id="quantitybtn" (click)='addToCart(quantityValue, product.name)'>Add
+              to Cart</button>
+              
+          <!-- </div> -->
         </div>
         </div>
         <!-- <div class="form-group">

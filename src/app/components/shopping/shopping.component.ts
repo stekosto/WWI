@@ -20,6 +20,7 @@ export class ShoppingComponent implements OnInit, OnChanges, DoCheck {
   constructor(private dataService: DataService, private compService: CompService) { }
 
   ngOnInit() {
+
     this.dataService.getData().subscribe(incomingdata => {
       this.data = incomingdata;
     });
@@ -29,6 +30,7 @@ export class ShoppingComponent implements OnInit, OnChanges, DoCheck {
       // console.log('incSortValue: ' + incSortValue);
       // console.log('sortingValue: ' + this.sortingValue);
     });
+
     this.compService.selectedFilteredStockValue.subscribe(incFilterStockValue => {
       this.inStock = incFilterStockValue;
       // console.log('incFilterStockValue ' + incFilterStockValue);
@@ -43,7 +45,6 @@ export class ShoppingComponent implements OnInit, OnChanges, DoCheck {
   }
 
   ngOnChanges() {
-
   }
 
   getSubcat(data: Data) {

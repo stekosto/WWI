@@ -1,6 +1,12 @@
 .image-height {
-  height: 25rem;
+  height: 30rem;
   object-fit: contain;
   object-position: 50% 50%;
   font-family: 'object-fit: contain;';
+}
+
+input.product {
+  width: 4rem!important;
+  padding-left: 0.5rem;
+  // padding-bottom: 0.5rem;
 }

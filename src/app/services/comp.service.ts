@@ -11,7 +11,7 @@ import { Items } from '../models/items';
 export class CompService {
   data: Data[];
 
-  private subCatSource = new BehaviorSubject<Data>({ category: null, subcategories: null });
+  private subCatSource = new BehaviorSubject<Data>({ category: null, subcategories: [] });
   selectedSubCat = this.subCatSource.asObservable();
 
   private ProductNameSource = new BehaviorSubject<Subcategories>({ name: null, items: null });
@@ -44,6 +44,8 @@ export class CompService {
   private itemOfItemInValue = new BehaviorSubject<OfInTotal>({ current: null, total: null });
   selectedItemOfItemInValue = this.itemOfItemInValue.asObservable();
 
+  private carouselCycleMethod = new Subject<Object>();
+  selectCarouselCycleMethod = this.carouselCycleMethod.asObservable();
 
   constructor() { }
 
@@ -86,5 +88,9 @@ export class CompService {
 
   setProduct(value: Items) {
     this.ProductSource.next(value);
+  }
+
+  setCarouselCycle(value: Object) {
+    this.carouselCycleMethod.next(value);
   }
 }

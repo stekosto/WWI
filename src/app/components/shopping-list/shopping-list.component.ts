@@ -84,7 +84,7 @@ export class ShoppingListComponent implements OnInit, DoCheck {
 
 
 ngDoCheck() {
-  console.log('ngDoCheck remalaka');
+  // console.log('ngDoCheck remalaka');
   this.sortBy(this.sortingValue);
 }
 

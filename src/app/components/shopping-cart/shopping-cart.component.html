@@ -1,113 +1,95 @@
-<section class="mt-3">
+<section class="mt-5" *ngIf="!cartState">
   <div class="container">
     <div class="row">
       <div class="col">
-        <h3 class="">Shopping Cart</h3>
-          <p class="text-justify pb-3">
-            Thank you for choosing our eShop. We strive to shipp next day.</p>
+        <h3 class="pb-3">Shopping Cart</h3>
       </div>
     </div>
-    <div class="row">
+    <div class="row bg-white border-bottom">
+      <div class="col-12">
+        <p class="lead h6 text-justify py-3">
+          Thank you for choosing our eShop. We strive to ship next business day.</p>
+      </div>
+    </div>
+    <!-- Shopping Cart / Order Summary-->
+    <div class="row bg-white">
       <!-- Shopping Cart -->
-      <div class="col-12 col-sm-8">
-        <div class="p-4">
-          <div class="table-responsive">
-            <table class="table table-hover table-sm" *ngIf="!cartState">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">Cart item</th>
-                  <th scope="col">Product</th>
-                  <th scope="col">Price</th>
-                  <th scope="col">Qty</th>
-                  <th scope="col">Total</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let product of products; let i = index">
-                  <td class="px-5 py-3 row">
-                    <a [routerLink]="['/product', product.name]" routerLinkActive="router-link-active" class="d-block mx-auto" >
-                    <img src="{{ product.imagelink }}" class="image-height" alt="{{ product.name }}"></a>
-                  </td>
-                  <td>{{ product.name}}</td>
-                  <td>{{ product.price | currency: USD }}</td>
-                  <td>
-                    <input type="number" name="quantity" [value]="product.quantity" [(ngModel)]=product.quantity (change)="onAddToCart(product)" class="text-center"/>
-                  </td>
-                  <td>{{ totalPrice }}</td>
-                  <td>
-                    <a class="btn btn-light" (click)="OnRemoveFromCart(product)"><i class="fa fa-times text-black-50"></i></a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+      <div class="col-12 col-md-8 border-right">
+        <div class="row py-3 border-bottom" *ngFor="let product of products; let i = index">
+          <!-- Image -->
+          <div class="col-3">
+            <a [routerLink]="['/product', product.name]" routerLinkActive="router-link-active" class="d-block mx-auto p-4 text-center">
+              <img src="{{ product.imagelink }}" class="image-height" alt="{{ product.name }}"></a>
           </div>
-
-          <div *ngIf="cartState">
-            <h3 class="lead bg-light">Shopping Cart is Empty!</h3>
-            <button class="btn btn-primary mt-3" href="" [routerLink]="['/shopping']" routerLinkActive="router-link-active">Go
-              shop!</button>
+          <!-- Name / Description / Price -->
+          <div class="col-5">
+            <ul class="list-group list-group-flush text-md-left text-center">
+              <li class="list-group-item border-0 font-weight-bold pt-1">{{ product.name | uppercase }}</li>
+              <li class="list-group-item border-0 font-weight-light pt-0">{{ product.description }}</li>
+              <li class="list-group-item border-0 font-weight-bold  py-0">
+                <span class="font-weight-bold text-danger">Unit Price: </span>{{ product.price | currency }}</li>
+            </ul>
+          </div>
+          <!-- Quantity / Remove -->
+          <div class="col-4">
+            <ul class="list-group list-group-flush text-md-left text-center">
+              <!-- <li class="list-group-item border-0 font-weight-bold py-0">{{ product.subtotal | currency
+                }}</li> -->
+              <li class="list-group-item border-0 pb-1 font-weight-bold">
+                <input type="number" name="quantity" [value]="product.quantity" [ngModel]=product.quantity (ngModelChange)="product.quantity=$event" (change)="onAddToCart(product)"
+                  class="text-center w-50" />
+              </li>
+              <li class="list-group-item border-0 font-weight-bold">
+                <a class="btn btn-light" (click)="OnRemoveFromCart(product)"><i class="fa fa-times text-black-50"></i></a>
+                <span class="font-weight-bold text-warning">Remove</span></li>
+            </ul>
           </div>
         </div>
       </div>
-      <div class="d-none"></div>
-      <!-- Order Summary -->
-
-      <div class="col-12 col-sm-4">
-
-        <!-- Checkout Form -->
-
+      <!-- Order Summary  / Checkout Form-->
+      <div class="col-12 col-md-4 pt-2 pb-4 px-4">
         <form #checkOutForm="ngForm" (ngSubmit)="onSubmit(checkOutForm)" class="mb-5 mb-md-0">
+          <!-- Order Summary -->
           <div class="form-group">
-            <div class="row">
-              <label for="subtotal" class="col-sm-9 col-form-label text-right">Subtotal</label>
-              <div class="col-sm-3">
-                <input type="text" class="form-control bg-light border-0" disabled id="subtotal" [(ngModel)]="subtotal"
-                  name="subtotal" aria-describedby="subtotalHelp" />
-              </div>
+            <div class="row py-2">
+              <div class="col-10 col-md-7 col-lg-9 font-weight-light">Subtotal</div>
+              <div class="col-2 col-md-5 col-lg-3 font-weight-bold">{{ this.subTotalValue | currency: USD }} </div>
             </div>
-            <div class="row">
-              <label for="shipping" class="col-sm-9 col-form-label text-right">Shipping</label>
-              <div class="col-sm-3">
-                <input type="text" class="form-control bg-light border-0" disabled id="shipping" [(ngModel)]="shipping"
-                  name="shipping" value="{{ shipping | currency: USD }}" aria-describedby="shippingHelp" />
-              </div>
+            <div class="row py-2">
+              <div class="col-10 col-md-7 col-lg-9 font-weight-light">Shipping</div>
+              <div class="col-2 col-md-5 col-lg-3 font-weight-bold">{{ this.shipping | currency: USD }}</div>
             </div>
-            <div class="row">
-              <label for="tax" class="col-sm-9 col-form-label text-right">Tax</label>
-              <div class="col-sm-3">
-                <input type="text" class="form-control bg-light border-0" disabled id="tax" [(ngModel)]="tax" name="tax"
-                  aria-describedby="taxHelp" />
-              </div>
+            <div class="row py-2">
+              <div class="col-10 col-md-7 col-lg-9 font-weight-light">Tax</div>
+              <div class="col-2 col-md-5 col-lg-3 font-weight-bold">{{ this.tax }}% </div>
             </div>
-            <hr/>
-            <div class="row">
-              <label for="total" class="col-sm-9 col-form-label text-right">Total</label>
-              <div class="col-sm-3">
-                <input type="text" class="form-control bg-light border-0" disabled id="total" [(ngModel)]="total" name="total"
-                  aria-describedby="totalHelp" />
+            <div class="row pb-2">
+              <label for="total" class="col-10 col-md-7 col-lg-9 font-weight-bold">Order Total</label>
+              <div class="col-2 col-md-5 col-lg-3">
+                <input type="text" class="w-100 bg-white border-0 font-weight-bold text-danger total" id="total" [ngModel]="totalValue | currency: USD"
+                  (ngModelChange)="totalValue.value=$event" name="total" readonly aria-describedby="totalHelp" />
+                <!-- <span class="font-weight-bold">{{ this.totalValue | currency: USD }}</span> -->
               </div>
             </div>
           </div>
-          <div class="text-right">
-            <button class="btn btn-primary ml-auto" [disabled]="!checkOutForm.form.valid">Checkout</button>
+          <!-- Checkout Button -->
+          <div class="row">
+            <div class="col text-center text-md-right">
+              <button class="btn btn-dark w-50 w-md-100" [disabled]="!checkOutForm.form.valid">Checkout</button>
+            </div>
           </div>
-            
+          <!----------- Checkout Form ----------->
+          <div class="row">
+            <div class="col font-weight-light h5 mt-5 mb-3">
+              Please Enter Shipping Details
+            </div>
+          </div>
           <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" id="name" [ngClass]="{'is-invalid':name.touched && !name.valid}"
               required ngModel #name="ngModel" name="name" minlength="2" aria-describedby="nameHelp" placeholder="Please enter your name" />
             <div class="invalid-feedback" [hidden]="!name.errors?.required">Name is required</div>
             <div class="invalid-feedback" [hidden]="!name.errors?.minlength">Name must be at least 2 characters </div>
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" [ngClass]="{'is-invalid':email.touched && !email.valid}"
-              required ngModel name="email" #email="ngModel" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-              placeholder="Please enter your email" />
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            <div class="invalid-feedback" [hidden]="!email.errors?.required">Email is required</div>
-            <div class="invalid-feedback" [hidden]="!email.errors?.pattern">Email is not valid</div>
           </div>
           <div class="form-group">
             <label for="address">Address</label>
@@ -126,14 +108,32 @@
           </div>
           <div class="form-group">
             <label for="phonenumber">Phone number</label>
-            <input type="text" class="form-control" id="phonenumber" [ngClass]="{'is-invalid':phonenumber.touched && !phonenumber.valid}" placeholder="Please enter your phonenumber"
-              required ngModel #phonenumber="ngModel" name="phonenumber" minlength="10" pattern="^[0-9]*$" />
+            <input type="text" class="form-control" id="phonenumber" [ngClass]="{'is-invalid':phonenumber.touched && !phonenumber.valid}"
+              placeholder="Please enter your phonenumber" required ngModel #phonenumber="ngModel" name="phonenumber"
+              minlength="10" pattern="^[0-9]*$" />
             <div class="invalid-feedback" [hidden]="!phonenumber.errors?.required">Phonenumber is required</div>
             <div class="invalid-feedback" [hidden]="!phonenumber.errors?.minlength">Phonenumber must be at least 10
               digits </div>
             <div class="invalid-feedback" [hidden]="!phonenumber.errors?.pattern">Phonenumber is not valid</div>
           </div>
+          <!-- Checkout Button -->
+          <div class="row mt-4">
+            <div class="col text-right text-md-right">
+              <button class="btn btn-dark w-50 w-md-100" [disabled]="!checkOutForm.form.valid">Checkout</button>
+            </div>
+          </div>
         </form>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="mt-5" *ngIf="cartState">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3 class="pb-3">Shopping Cart is Empty!</h3>
+        <button class="btn btn-dark mt-3" href="" [routerLink]="['/shopping']" routerLinkActive="router-link-active">Go
+          shopping!</button>
       </div>
     </div>
   </div>

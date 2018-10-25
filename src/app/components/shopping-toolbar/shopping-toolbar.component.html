@@ -1,4 +1,4 @@
-<div class="row align-items-center">
+<div class="row align-items-center my-3">
     <div class="col-4 col-md-6 my-1">
         <div [hidden]="!showItemValue" class="text-left" href="#">Showing {{ numberOfItems.current }} of
             {{ numberOfItems.total }} in
@@ -8,7 +8,7 @@
     <div class="col-3 col-md-2 my-1 text-right">
         <div class="custom-control custom-checkbox mr-sm-2">
             <input type="checkbox" class="custom-control-input" name="instock" id="instock" aria-label="Checkbox for items in stock"
-                [(ngModel)]="inStock" (change)="getInStockValue($event)" />
+                [(ngModel)]="inStock" (change)="getInStockValue($event)" [disabled]="!showItemValue" />
             <label class="custom-control-label" for="instock">In Stock</label>
         </div>
     </div>
@@ -16,7 +16,7 @@
          <div>Sort by:</div>
     </div>
     <div class="col-3 col-md-2 my-1 text-left">
-                <select class="custom-select" name="option" id="option" [(ngModel)]="sortingValue" (change)="getSortingValue($event.target.value)">
+                <select class="custom-select" name="option" id="option" [(ngModel)]="sortingValue" (change)="getSortingValue($event.target.value)" [disabled]="!showItemValue">
                     <option *ngFor="let option of options" [value]="option.value">{{ option.name }}
                     </option>
                 </select>
