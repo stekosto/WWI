@@ -67,7 +67,7 @@ export class ProductComponent implements OnInit {
 
   }
 
-  addToCart(qvalue, name) {
+  addToCart(qvalue) {
     for (let i = 0; i < qvalue; i++) {
       this.cartService.addItemToCart(this.products[0]);
       console.log(this.quantityValue);
