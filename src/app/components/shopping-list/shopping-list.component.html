@@ -1,4 +1,4 @@
-<div *ngIf="showitems">
+<div *ngIf="showitems && items">
     <div class="row" *ngIf="filteredProducts?.length > 0">
         <div class="col-12 col-md-6 col-lg-4 mb-3 d-flex d-flex-row align-items-stretch" *ngFor="let item of filteredProducts">
             <div class="w-100 bg-white">

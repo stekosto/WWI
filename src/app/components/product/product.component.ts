@@ -33,6 +33,10 @@ export class ProductComponent implements OnInit {
     private location: Location,
     private compService: CompService,
     private cartService: CartService) {
+  }
+
+  ngOnInit() {
+    objectFitImages();
     this.productName = this.route.snapshot.params['name'];
     // console.log(this.route.snapshot.params['name']);
     this.dataService.getData().pipe<Items[]>(
@@ -47,10 +51,6 @@ export class ProductComponent implements OnInit {
         // console.log(this.products);
         this.product = this.products[0];
       });
-  }
-
-  ngOnInit() {
-    objectFitImages();
   }
 
   onBack() {

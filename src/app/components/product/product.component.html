@@ -1,6 +1,6 @@
 <section class="border-bottom bg-white mt-5">
   <div class="container">
-    <div class="row">
+    <div class="row" *ngIf="product">
       <div class="col-12 col-md-5 image-container-height text-center">
         <img *ngIf="product.imagelink" [src]="product.imagelink" class="d-block img-fluid image-height p-5 mx-auto" alt="{{ product.name }}" />
       </div>
