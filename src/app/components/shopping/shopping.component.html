@@ -2,17 +2,17 @@
     <app-shopping-toolbar></app-shopping-toolbar>
     <div class="row">
         <div class="col-6 col-md-4">
-            <div class="wrapper">
+            <div class="">
                 <!-- Sidebar -->
-                <nav id="sidebar">
+                <nav id="sidebar d-flex">
                     <ul class="list-unstyled components" *ngFor='let item of data; let i = index;'>
                         <li>
-                            <a href="{{ '#pageSubmenu' + i }}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle h5 text-info font-weight-light"
+                            <a href="{{ '#pageSubmenu' + i }}" data-toggle="collapse" aria-expanded="false" class=" dropdown-toggle h5 font-weight-light btn btn-dark btn-lg w-100 w-lg-75 flex-grow-1"
                                 (click)="getSubcat(item)">{{ item.category }}
                             </a>
-                            <ul id="vert-subcat" class="collapse list-unstyled ml-3 font-weight-light" id="{{ 'pageSubmenu' + i }}">
-                                <li *ngFor="let subItem of item['subcategories']" class="text-nowrap pt-1">
-                                    <a (click)="getProductName(subItem)">{{ subItem.name }} </a>
+                            <ul id="vert-subcat" class="collapse list-unstyled" id="{{ 'pageSubmenu' + i }}">
+                                <li *ngFor="let subItem of item['subcategories']" class="d-inline">
+                                    <a (click)="getProductName(subItem)" class="product text-nowrap btn font-weight-light border m-1">{{ subItem.name }} </a>
                                 </li>
                             </ul>
                         </li>

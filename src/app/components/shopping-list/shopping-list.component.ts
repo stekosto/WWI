@@ -132,8 +132,12 @@ export class ShoppingListComponent implements OnInit, DoCheck {
   }
 
   addToCart(item) {
+    if (item.stock > 0) {
     this.cartService.addItemToCart(item);
     alert(`One ${item.name} added to Shopping Cart`);
+  } else {
+    alert(`Sorry ${item.name} is not in stock`);
+  }
   }
 
 }

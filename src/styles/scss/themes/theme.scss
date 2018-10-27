@@ -100,3 +100,22 @@ ngb-carousel {
     height: 40rem;
     border: 0!important;
 }
+a.subcat {
+    background-color:#fff;
+}
+
+a.product {
+    background-color: #fff;
+}
+
+a.subcat:hover, a.subcat:focus, a.subcat:target{
+    color: white!important;
+    background-color: black!important;
+}
+
+a.product:hover, a.product:focus, a.product:target{
+    color: black!important;
+    background-color:#e9ecef!important;
+}
+
+ 

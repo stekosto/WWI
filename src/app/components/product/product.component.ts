@@ -67,13 +67,14 @@ export class ProductComponent implements OnInit {
   }
 
   addToCart(qvalue) {
+    if (this.products[0].stock > 0) {
     // add product to cart
     for (let i = 0; i < qvalue; i++) {
       this.cartService.addItemToCart(this.products[0]);
     }
     alert(`${this.quantityValue} ${this.product.name}(s)  added to Shopping Cart`);
+  } else {
+    alert(`Sorry ${this.products[0].name} is not in stock`);
   }
-
+  }
 }
-
-
