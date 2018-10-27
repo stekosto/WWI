@@ -33,11 +33,9 @@
           <!-- Quantity / Remove -->
           <div class="col-4">
             <ul class="list-group list-group-flush text-md-left text-center">
-              <!-- <li class="list-group-item border-0 font-weight-bold py-0">{{ product.subtotal | currency
-                }}</li> -->
               <li class="list-group-item border-0 pb-1 font-weight-bold">
-                <input type="number" name="quantity" [value]="product.quantity" [ngModel]=product.quantity (ngModelChange)="product.quantity=$event" (change)="onAddToCart(product)"
-                  class="text-center w-50" />
+                <input type="number" name="quantity" [value]="product.quantity" [ngModel]=product.quantity
+                  (ngModelChange)="product.quantity=$event" (change)="onAddToCart(product)" class="text-center w-50" />
               </li>
               <li class="list-group-item border-0 font-weight-bold">
                 <a class="btn btn-light" (click)="OnRemoveFromCart(product)"><i class="fa fa-times text-black-50"></i></a>
@@ -66,9 +64,9 @@
             <div class="row pb-2">
               <label for="total" class="col-10 col-md-7 col-lg-9 font-weight-bold">Order Total</label>
               <div class="col-2 col-md-5 col-lg-3">
-                <input type="text" class="w-100 bg-white border-0 font-weight-bold text-danger total" id="total" [ngModel]="totalValue | currency: USD"
-                  (ngModelChange)="totalValue.value=$event" name="total" readonly aria-describedby="totalHelp" />
-                <!-- <span class="font-weight-bold">{{ this.totalValue | currency: USD }}</span> -->
+                <input type="text" class="w-100 bg-white border-0 font-weight-bold text-danger total" id="total"
+                  [ngModel]="totalValue | currency: USD" (ngModelChange)="totalValue.value=$event" name="total"
+                  readonly aria-describedby="totalHelp" />
               </div>
             </div>
           </div>

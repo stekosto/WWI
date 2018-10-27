@@ -6,7 +6,8 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-md-5 col-lg-7">
-          <span class="nav-link h3 font-weight-light text-center text-md-left pb-3 pb-md-0" href="#">Welcome to our online shop!</span>
+          <span class="nav-link h3 font-weight-light text-center text-md-left pb-3 pb-md-0" href="#">Welcome to our
+            online shop!</span>
         </div>
         <div class="col-6 col-md-4 col-lg-3">
           <a class="nav-link bg-success mr-3 text-nowrap text-center text-white" role="button" data-slide="next"
@@ -19,45 +20,5 @@
       </div>
     </div>
   </nav>
-
 </section>
-<!------------------------------\
-            CAROUSEL STARTS
-         ------------------------------>
-<!-- <section class="carousel bg-white" *ngIf="items"> -->
-  <!-- <div class="container">
-    <div id="carouselExampleControls" class="carousel slide" [attr.data-interval]="carouselInterval" [attr.data-ride]="carouselRide"
-      [attr.data-wrap]="carouselWrap">
-      <div id="carousel" class="carousel slide carousel-fade" [attr.data-interval]="carouselInterval" [attr.data-ride]="carouselRide">
-
-        <div class="carousel-inner">
-          <div href="" [routerLink]="['/product', item.name]" routerLinkActive="router-link-active" class="carousel-item pt-5 pt-xl-5"
-            *ngFor="let item of items; let i = index" [ngClass]="{'active': i == 1 }">
-            <img class="d-block mx-auto image-height pb-5" src="{{ item.imagelink }}" alt="{{ item.name }}" />
-            <div class="text-black text-center h3 font-weight-light">
-
-              <span class="mr-3">{{ item.name }}</span>
-              <span>{{ item.price | currency: 'USD' }}</span>
-              <p></p>
-            </div>
-          </div>
-        </div>
-
-        <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev" (click)="onCarouselPrev()">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carousel" role="button" data-slide="next" (click)="onCarouselNext()">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-    </div>
-  </div>
-</section> -->
-
-<!------------------------------
-            CAROUSEL ENDS
-         ------------------------------>
-
 <app-carousel></app-carousel>

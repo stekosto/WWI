@@ -1,19 +1,11 @@
 <ngb-carousel *ngIf="items" #carousel>
-    <ng-template ngbSlide *ngFor="let item of items">
-      <a [routerLink]="['/product', item.name]" routerLinkActive="router-link-active" class="mx-auto text-center">
-        <img [src]="item.imagelink" class="image-carousel my-5 mx-auto" alt="Random first slide"/>
-      </a>
-        <div class="text-black text-center h3 font-weight-light mt-5 d-block w-100 d-none align-self-end">
-            <span class="text-black mr-3">{{ item.name }}</span>
-            <span class="text-black font-weight-bold">{{ item.price | currency: 'USD' }}</span>
-        </div>
-      
-      
-    </ng-template>
-  </ngb-carousel>
- <!-- <div class="carousel-arrows-container">
-   <a role="button" class="arrow-prev" (click)="prev()"><span aria-hidden="true" class="carousel-control-prev-icon "></span><span class="sr-only">Previous</span></a>
-    <a role="button" class="arrow-next" (click)="next()"><span aria-hidden="true" class="carousel-control-next-icon"></span><span class="sr-only">Next</span></a>
- </div> -->
-
-  <!-- <button class="btn btn-primary" (click)="cycle()">Toggle re skato</button> -->
+  <ng-template ngbSlide *ngFor="let item of items">
+    <a [routerLink]="['/product', item.name]" routerLinkActive="router-link-active" class="mx-auto text-center">
+      <img [src]="item.imagelink" class="image-carousel my-5 mx-auto" alt="Random first slide" />
+    </a>
+    <div class="text-black text-center h3 font-weight-light mt-5 d-block w-100 d-none align-self-end">
+      <span class="text-black mr-3">{{ item.name }}</span>
+      <span class="text-black font-weight-bold">{{ item.price | currency: 'USD' }}</span>
+    </div>
+  </ng-template>
+</ngb-carousel>

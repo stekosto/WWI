@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './services/data.service';
 import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
-import { TestComponent } from './components/test/test.component';
 import { ShoppingComponent } from './components/shopping/shopping.component';
 import { ProductComponent } from './components/product/product.component';
 import { CartComponent } from './components/shopping-cart/shopping-cart.component';
@@ -27,7 +26,6 @@ import { CarouselComponent } from './components/carousel/carousel.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    TestComponent,
     ShoppingComponent,
     ProductComponent,
     CartComponent,

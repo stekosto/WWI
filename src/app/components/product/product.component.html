@@ -9,32 +9,25 @@
       </div>
       <div class="col-12 col-md-6 d-flex align-items-center">
         <div class="text-center mx-auto">
-            <ul class="list-group list-group-flush text-md-left text-center">
-                <li class="list-group-item border-0 font-weight-bold h4 pb-0">{{ product.name | uppercase }}</li>
-                <li class="list-group-item border-0 pb-0 pt-1 font-weight-light"><app-star-rating [rating]="product.rating"></app-star-rating><span class="align-top"> ({{ product.rating }})</span></li>
-                <li class="list-group-item border-0 font-weight-bold display-3 py-0">{{ product.price | currency }}</li>
-                <li class="list-group-item border-0 font-weight-light">{{ product.description }}</li> 
-                <li class="list-group-item border-0 pt-0 font-weight-light"><span class="font-weight-bold">In stock: </span>{{ product.stock }} pcs</li>
-                <li class="list-group-item border-0 pb-1 font-weight-bold">Quantity</li>
-              </ul>
-          <div class="input-group mb-4 text-center mx-auto ml-md-3 mb-md-2"> 
-          
-            
-              <input type="number" class="product ml-5 ml-md-0" [value]="1" [(ngModel)]="quantityValue" (change)='setQuantity($event.target.value)' aria-label="Product Quantity" aria-describedby="button-addon2"id="quantity" />
-             
-            <!-- <div class="input-group-append"> -->
-              <button class="btn btn-dark" type="button" id="quantitybtn" (click)='addToCart(quantityValue)'>Add
+          <ul class="list-group list-group-flush text-md-left text-center">
+            <li class="list-group-item border-0 font-weight-bold h4 pb-0">{{ product.name | uppercase }}</li>
+            <li class="list-group-item border-0 pb-0 pt-1 font-weight-light">
+              <app-star-rating [rating]="product.rating"></app-star-rating><span class="align-top"> ({{ product.rating
+                }})</span>
+            </li>
+            <li class="list-group-item border-0 font-weight-bold display-3 py-0">{{ product.price | currency }}</li>
+            <li class="list-group-item border-0 font-weight-light">{{ product.description }}</li>
+            <li class="list-group-item border-0 pt-0 font-weight-light"><span class="font-weight-bold">In stock: </span>{{
+              product.stock }} pcs</li>
+            <li class="list-group-item border-0 pb-1 font-weight-bold">Quantity</li>
+          </ul>
+          <div class="input-group mb-4 text-center mx-auto ml-md-3 mb-md-2">
+            <input type="number" class="product ml-5 ml-md-0" [value]="1" [(ngModel)]="quantityValue"
+              aria-label="Product Quantity" aria-describedby="button-addon2" id="quantity" />
+            <button class="btn btn-dark" type="button" id="quantitybtn" (click)='addToCart(quantityValue)'>Add
               to Cart</button>
-              
-          <!-- </div> -->
+          </div>
         </div>
-        </div>
-        <!-- <div class="form-group">
-          <label for="quantity"class="lead mr-2">Qty: </label>
-          <input type="number" name="quantity" [value]="1" (change)='setQuantity($event.target.value)'
-          [(ngModel)]="quantityValue">
-        </div>
-        <button class="btn btn-primary d-block mt-2" (click)='addToCart(quantityValue)'>Add to Cart</button> -->
       </div>
     </div>
   </div>

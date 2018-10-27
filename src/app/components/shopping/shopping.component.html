@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="data">
     <app-shopping-toolbar></app-shopping-toolbar>
     <div class="row">
         <div class="col-6 col-md-4">
@@ -7,20 +7,11 @@
                 <nav id="sidebar">
                     <ul class="list-unstyled components" *ngFor='let item of data; let i = index;'>
                         <li>
-                            <a 
-                            href="{{ '#pageSubmenu' + i }}" 
-                            data-toggle ="collapse" 
-                            aria-expanded = "false"
-                            class="dropdown-toggle font-weight-light h5 text-dark" 
-                            (click)="getSubcat(item)">{{ item.category }}
+                            <a href="{{ '#pageSubmenu' + i }}" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle h5 text-info font-weight-light"
+                                (click)="getSubcat(item)">{{ item.category }}
                             </a>
-                            
-                            <ul 
-                            id="vert-subcat" 
-                            class="collapse list-unstyled ml-3 font-weight-light" 
-                            id="{{ 'pageSubmenu' + i }}"
-                            >
-                                <li *ngFor="let subItem of item['subcategories']" class="text-nowrap">
+                            <ul id="vert-subcat" class="collapse list-unstyled ml-3 font-weight-light" id="{{ 'pageSubmenu' + i }}">
+                                <li *ngFor="let subItem of item['subcategories']" class="text-nowrap pt-1">
                                     <a (click)="getProductName(subItem)">{{ subItem.name }} </a>
                                 </li>
                             </ul>
@@ -30,8 +21,8 @@
             </div>
         </div>
         <div class="col-6 col-md-8">
-            <app-shopping-list-cat ></app-shopping-list-cat> 
-            <app-shopping-list ></app-shopping-list>
+            <app-shopping-list-cat></app-shopping-list-cat>
+            <app-shopping-list></app-shopping-list>
         </div>
     </div>
 </div>

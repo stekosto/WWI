@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, DoCheck } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { Data } from 'src/app/models/data';
 import { CompService } from '../../services/comp.service';
@@ -9,7 +9,8 @@ import { Subcategories } from '../../models/subcategories';
   templateUrl: './shopping.component.html',
   styleUrls: ['./shopping.component.scss']
 })
-export class ShoppingComponent implements OnInit, OnChanges, DoCheck {
+export class ShoppingComponent implements OnInit {
+
   data: Data[];
   isTrue = false;
   showitems = false;
@@ -20,47 +21,33 @@ export class ShoppingComponent implements OnInit, OnChanges, DoCheck {
   constructor(private dataService: DataService, private compService: CompService) { }
 
   ngOnInit() {
-
+    // get data from server
     this.dataService.getData().subscribe(incomingdata => {
       this.data = incomingdata;
     });
-
+    // get current sorting value (1,2,3,4)
     this.compService.selectedSortingValue.subscribe(incSortValue => {
       this.sortingValue = incSortValue;
-      // console.log('incSortValue: ' + incSortValue);
-      // console.log('sortingValue: ' + this.sortingValue);
     });
-
+    // get filter (in stock) value (true / false )
     this.compService.selectedFilteredStockValue.subscribe(incFilterStockValue => {
       this.inStock = incFilterStockValue;
-      // console.log('incFilterStockValue ' + incFilterStockValue);
-      // console.log('inStock: ' + this.inStock);
     });
-
     this.compService.setSortingValue(this.sortingValue);
-
-  }
-
-  ngDoCheck() {
-  }
-
-  ngOnChanges() {
   }
 
   getSubcat(data: Data) {
-    // this.showitems = false;
+    // show subcategories grid, get data
     this.compService.setShowItems(false);
     this.compService.setSubCat(data);
-    console.log('showite shopping.comp: ' + this.showitems);
   }
 
   getProductName(subcategories: Subcategories) {
-    console.log('gerProductName() in shopping.component STARTS');
+    // show product grid, get data initialize filtering/sorting values
     this.compService.setShowItems(true);
     this.compService.setSortingValue(this.sortingValue);
     this.compService.setFilterStockValue(this.inStock);
     this.compService.setProductName(subcategories);
-    console.log('gerProductName() in shopping.component ENDS');
   }
 
 }

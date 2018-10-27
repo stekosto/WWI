@@ -51,35 +51,26 @@ export class CompService {
 
   setSubCat(data: Data) {
     this.subCatSource.next(data);
-    console.log('---------------compService: setSubCat------------');
-    console.log(data);
   }
 
   setProductName(subItem: Subcategories) {
-    console.log('-------- compService: setProductName----------');
-    console.log(subItem);
     this.ProductNameSource.next(subItem);
   }
 
   setShowItems(state: boolean) {
-    console.log('compService: showItems:' + state);
     this.stateShowItem.next(state);
   }
 
   setSortingValue(value: string) {
-    console.log('compService: sortingValue:' + value);
     this.sortingValue.next(value);
   }
 
   setFilterStockValue(value: boolean) {
-    console.log('compService: FilteringValue:' + value);
     this.filterStockValue.next(value);
   }
 
   setReturnSortingValue(value: string) {
     this.returnSortingValue.next(value);
-    console.log('compService: returnSortingValue:' + value);
-
   }
 
   setItemOfItemIn(value: OfInTotal) {

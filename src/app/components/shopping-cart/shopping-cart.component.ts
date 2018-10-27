@@ -1,16 +1,14 @@
-import { Component, OnInit, OnChanges, ViewChild, DoCheck, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, OnChanges, ViewChild, DoCheck } from '@angular/core';
 import { CompService } from '../../services/comp.service';
 import { Items, CartItems } from '../../models/items';
 import { CartService } from 'src/app/services/cart.service';
-import { ReadFromInjectorFn } from '@angular/core/src/render3/di';
-import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.scss']
 })
-export class CartComponent implements OnInit, OnChanges, DoCheck, AfterViewInit {
+export class CartComponent implements OnInit, OnChanges, DoCheck {
   items: any[];
   product: Items;
   products: CartItems[] = [];
@@ -19,41 +17,36 @@ export class CartComponent implements OnInit, OnChanges, DoCheck, AfterViewInit 
   productQuantity: number = null;
   setQuantity: number;
   ArrayQuantity: any[];
-  cartState: boolean = false;
-  itemDeleted: boolean = true;
+  cartState = false;
+  itemDeleted = true;
   @ViewChild('checkOutform') form: any;
-  // @ViewChild('inputSubTotal') inputSubTotal: ElementRef;
   formValue: any;
   subtotal: number;
-  shipping: number = 10.00;
-  tax: number = 10.00;
-  total: number = 10.00;
+  shipping = 10.00;
+  tax = 10.00;
+  total: number;
   reduceVar: any;
   ArrayProduct: CartItems[];
   subTotalValue: number;
   totalValue: number;
   oldQuantity: number;
 
-  constructor(private compService: CompService, private cartService: CartService) { }
+  constructor(private compService: CompService, private cartService: CartService) {}
 
   ngOnInit() {
+    // get items from local Storage, get unique rows add quantity property
     this.getFromCart();
+    // Calculate subtotal by multiply unit price * quantity, add a new property subtotal
     this.subTotal();
-    this.emptyShoppingCart();
-    console.log(this.ArrayProduct);
+    this.emptyShoppingCart(); //  Check if cart is empty
   }
 
   ngOnChanges() {
-    this.emptyShoppingCart();
+    this.emptyShoppingCart();  //  Check if cart is empty
   }
 
   ngDoCheck() {
-    this.subTotal();
-  }
-
-  ngAfterViewInit() {
-    //  this.inputSubTotal.nativeElement.value = this.subTotalValue;
-
+    this.subTotal();  // check for changes in quantity of products
   }
 
   emptyShoppingCart() {
@@ -63,8 +56,8 @@ export class CartComponent implements OnInit, OnChanges, DoCheck, AfterViewInit 
     }
   }
 
+  // listen to user input and calculate total
   onAddToCart(product) {
-    console.log('onAddToCart() in shopping-cart.component STARTS');
     const tempArrayProduct2 = this.ArrayProduct.map(obj => {
       const rObj = {} as CartItems;
       rObj.name = obj.name;
@@ -76,8 +69,6 @@ export class CartComponent implements OnInit, OnChanges, DoCheck, AfterViewInit 
     this.ArrayProduct = tempArrayProduct2;
     this.subTotalValue = tempArrayProduct2.reduce((accu, item) => accu + item.subtotal, 0);
     this.totalValue = (this.subTotalValue + this.shipping) + (this.subTotalValue + this.shipping) * this.tax * 0.01;
-    console.log(tempArrayProduct2);
-    console.log('onAddToCart() in shopping-cart.component ENDS');
   }
 
   OnRemoveFromCart(product) {
@@ -148,8 +139,6 @@ export class CartComponent implements OnInit, OnChanges, DoCheck, AfterViewInit 
     this.ArrayProduct = tempArrayProduct;
     this.subTotalValue = tempArrayProduct.reduce((accu, item) => accu + item.subtotal, 0);
     this.totalValue = (this.subTotalValue + this.shipping) + (this.subTotalValue + this.shipping) * this.tax * 0.01;
-    // console.log(tempArrayProduct);
-    // console.log(this.subTotalValue);
   }
 
 }

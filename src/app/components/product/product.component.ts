@@ -25,7 +25,6 @@ export class ProductComponent implements OnInit {
   product = {} as Items;
   productName: string;
   quantityValue: number = 1;
-  cartItems: Items[];
 
   constructor(
     private dataService: DataService,
@@ -37,8 +36,9 @@ export class ProductComponent implements OnInit {
 
   ngOnInit() {
     objectFitImages();
+    // get product name from Router
     this.productName = this.route.snapshot.params['name'];
-    // console.log(this.route.snapshot.params['name']);
+    // get products from server
     this.dataService.getData().pipe<Items[]>(
       flatMap(data => data),
       map(data => data.subcategories),
@@ -47,8 +47,8 @@ export class ProductComponent implements OnInit {
       flatMap(data => data),
       toArray()).subscribe(incomingdata => {
         this.products = incomingdata;
+        // get product
         this.getProduct();
-        // console.log(this.products);
         this.product = this.products[0];
       });
   }
@@ -59,26 +59,20 @@ export class ProductComponent implements OnInit {
   }
 
   getProduct() {
+    // filter product based on product name from Router
     this.products = this.products.filter(item => {
-      // console.log(item);
       return item.name === this.productName;
     });
     return this.products ? this.products[0] : null;
-
   }
 
   addToCart(qvalue) {
+    // add product to cart
     for (let i = 0; i < qvalue; i++) {
       this.cartService.addItemToCart(this.products[0]);
-      console.log(this.quantityValue);
     }
     alert(`${this.quantityValue} ${this.product.name}(s)  added to Shopping Cart`);
   }
-
-  setQuantity(value) {
-    // console.log(value);
-  }
-
 
 }
 

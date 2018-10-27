@@ -13,12 +13,15 @@
         </div>
     </div>
     <div class="col-2 my-1 text-right p-0">
-         <div>Sort by:</div>
+        <div>Sort by:</div>
     </div>
     <div class="col-3 col-md-2 my-1 text-left">
-                <select class="custom-select" name="option" id="option" [(ngModel)]="sortingValue" (change)="getSortingValue($event.target.value)" [disabled]="!showItemValue">
-                    <option *ngFor="let option of options" [value]="option.value">{{ option.name }}
-                    </option>
-                </select>
+        <select class="custom-select" name="option" id="option" [(ngModel)]="sortingValue" (change)="getSortingValue($event.target.value)"
+            [disabled]="!showItemValue">
+            <option *ngFor="let option of options; let i = index" [attr.selected]=" i == 0 ? 'selected' : null"
+                [attr.disabled]=" i == 0 ? 'disabled' : null" [attr.hidden]=" i == 0 ? 'hidden' : null" [value]="option.value">{{
+                option.name }}
+            </option>
+        </select>
     </div>
 </div>

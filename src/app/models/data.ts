@@ -1,4 +1,3 @@
-
 import { Subcategories } from './subcategories';
 
 export interface Data {
