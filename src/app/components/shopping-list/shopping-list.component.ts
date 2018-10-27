@@ -133,6 +133,7 @@ export class ShoppingListComponent implements OnInit, DoCheck {
 
   addToCart(item) {
     this.cartService.addItemToCart(item);
+    alert(`One ${item.name} added to Shopping Cart`);
   }
 
 }
