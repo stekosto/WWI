@@ -110,9 +110,9 @@ export class ShoppingListComponent implements OnInit, DoCheck {
   }
 
   sortByRating(item1, item2) {
-    if (item1.data.rating > item2.data.rating) {
+    if (item1.data.rating < item2.data.rating) {
       return 1;
-    } else if (item1.data.rating < item2.data.rating) { return -1; } else { return item1.idx - item2.idx; }
+    } else if (item1.data.rating > item2.data.rating) { return -1; } else { return item1.idx - item2.idx; }
   }
 
   sortByPrice(item1, item2) {
