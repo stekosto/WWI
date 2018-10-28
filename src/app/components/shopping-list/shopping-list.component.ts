@@ -75,35 +75,50 @@ export class ShoppingListComponent implements OnInit, DoCheck {
           this.products = this.copyItems;
           break;
         case '2':
-          this.products = this.items.sort(this.sortByPrice).map(value2 => value2);
+          let sortArrayByPrice: any;
+          sortArrayByPrice = this.items.map((data, idx) => {
+            return { idx: idx, data: data };
+          });
+          sortArrayByPrice.sort(this.sortByPrice);
+          this.products = sortArrayByPrice.map(value2 => value2.data);
           break;
         case '3':
-          this.products = this.items.sort(this.sortByName).map(value3 => value3);
+          let sortArrayByName: any;
+          sortArrayByName = this.items.map((data, idx) => {
+            return { idx: idx, data: data };
+          });
+          sortArrayByName.sort(this.sortByName);
+          this.products = sortArrayByName.map(value2 => value2.data);
           break;
         case '4':
-          this.products = this.items.sort(this.sortByRating).map(value4 => value4);
+          let sortArrayByRating: any;
+          sortArrayByRating = this.items.map((data, idx) => {
+            return { idx: idx, data: data };
+          });
+          sortArrayByRating.sort(this.sortByRating);
+          this.products = sortArrayByRating.map(value3 => value3.data);
           break;
       }
       this.filterBy();
     }
   }
 
-  sortByName(item1: Items, item2: Items) {
-    if (item1.name > item2.name) {
+  sortByName(item1, item2) {
+    if (item1.data.name > item2.data.name) {
       return 1;
-    } else if (item1.name === item2.name) { return 0; } else { return -1; }
+    } else if (item1.data.name === item2.data.name) { return 0; } else { return item1.idx - item2.idx; }
   }
 
-  sortByRating(item1: Items, item2: Items) {
-    if (item1.rating < item2.rating) {
+  sortByRating(item1, item2) {
+    if (item1.data.rating > item2.data.rating) {
       return 1;
-    } else if (item1.rating === item2.rating) { return 0; } else { return -1; }
+    } else if (item1.data.rating < item2.data.rating) { return -1; } else { return item1.idx - item2.idx; }
   }
 
-  sortByPrice(item1: Items, item2: Items) {
-    if (item1.price > item2.price) {
+  sortByPrice(item1, item2) {
+    if (item1.data.price > item2.data.price) {
       return 1;
-    } else if (item1.price === item2.price) { return 0; } else { return -1; }
+    } else if (item1.data.price === item2.data.price) { return 0; } else { return item1.idx - item2.idx; }
   }
 
   filterBy() {
@@ -133,11 +148,11 @@ export class ShoppingListComponent implements OnInit, DoCheck {
 
   addToCart(item) {
     if (item.stock > 0) {
-    this.cartService.addItemToCart(item);
-    alert(`One ${item.name} added to Shopping Cart`);
-  } else {
-    alert(`Sorry ${item.name} is not in stock`);
-  }
+      this.cartService.addItemToCart(item);
+      alert(`One ${item.name} added to Shopping Cart`);
+    } else {
+      alert(`Sorry ${item.name} is not in stock`);
+    }
   }
 
 }
