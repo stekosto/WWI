@@ -104,9 +104,9 @@ export class ShoppingListComponent implements OnInit, DoCheck {
   }
 
   sortByName(item1, item2) {
-    if (item1.data.name > item2.data.name) {
-      return 1;
-    } else if (item1.data.name === item2.data.name) { return 0; } else { return item1.idx - item2.idx; }
+    if (item1.data.name < item2.data.name) {
+      return -1;
+    } else if (item1.data.name > item2.data.name) { return 1; } else { return item1.idx - item2.idx; }
   }
 
   sortByRating(item1, item2) {
@@ -116,9 +116,9 @@ export class ShoppingListComponent implements OnInit, DoCheck {
   }
 
   sortByPrice(item1, item2) {
-    if (item1.data.price > item2.data.price) {
-      return 1;
-    } else if (item1.data.price === item2.data.price) { return 0; } else { return item1.idx - item2.idx; }
+    if (item1.data.price < item2.data.price) {
+      return -1;
+    } else if (item1.data.price > item2.data.price) { return 1; } else { return item1.idx - item2.idx; }
   }
 
   filterBy() {
