@@ -6,5 +6,5 @@ As I mentioned, this is an ongoing project that is being constanly refactored an
 
 A live demo of the project can be found at https://stekosto.github.io/WWI
 
-Some screenshots:
+#Some screenshots:
 
